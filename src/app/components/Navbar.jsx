@@ -14,7 +14,7 @@ function NavbarIcon({ icon: Icon, label }) {
 
 export default function Navbar() {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-black p-4 rounded-3xl">
+    <nav className="fixed bottom-0 left-0 right-0 bg-black p-4 ">
       <div className="flex justify-around items-center max-w-screen-lg mx-auto">
         <NavbarIcon icon={Home} label="Home" />{" "}
         {/* Now matches the correct component name */}
