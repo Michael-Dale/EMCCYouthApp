@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Navbar from "./components/Navbar";
 import {
   LoginLink,
   LogoutLink,
@@ -11,7 +10,7 @@ export default function Home() {
     <>
       {/* <LoginLink>Sign in</LoginLink>
       <RegisterLink>Sign up</RegisterLink> */}
-      <Navbar />
+      <h1 className="text-center text-3xl font-bold mt-4">Please login</h1>
     </>
   );
 }
