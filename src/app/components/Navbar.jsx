@@ -1,7 +1,5 @@
 import React from "react";
-import { Home, Search, PlusSquare, Heart, User } from "lucide-react";
 import Link from "next/link";
-import Testicon from "@/app/components/testicon";
 
 const home = () => (
   <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 24 24" width = "30px" height = "30px">
@@ -49,7 +47,7 @@ const info = () => (
       fill="none"
       stroke="currentColor"
       stroke-linecap="round"
-      stroke-linejoin="round"
+      stroke-linejoin="round"c
       stroke-width="32"
     />
   </svg>
