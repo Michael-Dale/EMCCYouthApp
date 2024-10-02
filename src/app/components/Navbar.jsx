@@ -20,8 +20,7 @@ export default function Component() {
         <NavbarIcon icon={Search} label="Search" />
         <NavbarIcon icon={PlusSquare} label="Create" />
         <NavbarIcon icon={Heart} label="Notifications" />
-        <NavbarIcon icon={User} label="Profile" />
-        <Testicon />
+        <NavbarIcon icon={Testicon} label="Profile" />
       </div>
     </nav>
   );
