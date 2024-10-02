@@ -1,6 +1,7 @@
-import React from 'react'
-import { Home, Search, PlusSquare, Heart, User } from "lucide-react"
-import Link from "next/link"
+import React from "react";
+import { Home, Search, PlusSquare, Heart, User } from "lucide-react";
+import Link from "next/link";
+import Testicon from "@/app/components/testicon";
 
 function NavbarIcon({ icon: Icon, label }) {
   return (
@@ -8,7 +9,7 @@ function NavbarIcon({ icon: Icon, label }) {
       <Icon className="w-6 h-6 mb-1" />
       <span className="text-xs">{label}</span>
     </Link>
-  )
+  );
 }
 
 export default function Component() {
@@ -20,7 +21,8 @@ export default function Component() {
         <NavbarIcon icon={PlusSquare} label="Create" />
         <NavbarIcon icon={Heart} label="Notifications" />
         <NavbarIcon icon={User} label="Profile" />
+        <Testicon />
       </div>
     </nav>
-  )
+  );
 }
