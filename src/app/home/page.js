@@ -10,6 +10,7 @@ export default function HomePage() {
       </div>
        <Navbar />
        <a href="https://wa.me/27638074854?text=Hello%2C%20how%20are%20you%3F" target="_blank">Send WhatsApp Message to Matthew</a>
+       <a href="" target="_blank">Youth Group</a>
        <a href="https://www.instagram.com/connect_emcc?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">Open instagram profile</a>
         </>
       
