@@ -137,13 +137,13 @@ export default function Component() {
           icon={blog}
           label="Blog"
           link="/blog"
-          activeColor="#00e054"
+          activeColor="#ec4899"
         />
         <NavbarIcon
           icon={contact}
           label="Contact"
           link="/contact"
-          activeColor="#ec4899"
+          activeColor="#00e054"
         />
         <NavbarIcon
           icon={info}
