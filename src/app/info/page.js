@@ -1,6 +1,8 @@
 import PageTransition from "../components/PageTransition";
+const sender = require('../components/Emailer');
 
 export default function Info() {
+// sender();
   return (
     <PageTransition>
       <div className="p-4">

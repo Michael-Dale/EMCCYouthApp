@@ -125,7 +125,7 @@ function NavbarIcon({ icon: Icon, label, link, activeColor }) {
 
 export default function Component() {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-black p-4 ">
+    <nav className="fixed bottom-0 left-0 right-0 bg-black p-4 " style={{ background: 'linear-gradient(to top, #0a0a0a, #000000)' }}>
       <div className="flex justify-around items-center max-w-screen-lg mx-auto">
         <NavbarIcon
           icon={home}
@@ -149,13 +149,13 @@ export default function Component() {
           icon={info}
           label="Info"
           link="/info"
-          activeColor="#40bcf4"
+          activeColor="#ef4444"
         />
         <NavbarIcon
           icon={account}
           label="Account"
           link="/account"
-          activeColor="#ef4444"
+          activeColor="#40bcf4"
         />
       </div>
     </nav>
