@@ -1,5 +1,7 @@
+"use client";
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const home = () => (
   <svg
@@ -105,9 +107,16 @@ const account = () => (
   </svg>
 );
 
-function NavbarIcon({ icon: Icon, label }) {
+function NavbarIcon({ icon: Icon, label, link, activeColor }) {
+  const pathname = usePathname();
   return (
-    <Link href="#" className="flex flex-col items-center text-white">
+    <Link
+      href={link}
+      className={`flex flex-col items-center ${
+        pathname === link ? `text-[${activeColor}]` : "text-white"
+      }`}
+      style={pathname === link ? { color: activeColor } : {}}
+    >
       <Icon className="w-6 h-6 mb-1" />
       <span className="text-xs">{label}</span>
     </Link>
@@ -118,12 +127,44 @@ export default function Component() {
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-black p-4 ">
       <div className="flex justify-around items-center max-w-screen-lg mx-auto">
-        <NavbarIcon icon={home} />
-        <NavbarIcon icon={blog} />
-        <NavbarIcon icon={contact} />
-        <NavbarIcon icon={info} />
-        <NavbarIcon icon={account} />
+        <NavbarIcon
+          icon={home}
+          label="Home"
+          link="/home"
+          activeColor="#ff8000"
+        />
+        <NavbarIcon
+          icon={blog}
+          label="Blog"
+          link="/blog"
+          activeColor="#00e054"
+        />
+        <NavbarIcon
+          icon={contact}
+          label="Contact"
+          link="/contact"
+          activeColor="#ec4899"
+        />
+        <NavbarIcon
+          icon={info}
+          label="Info"
+          link="/info"
+          activeColor="#40bcf4"
+        />
+        <NavbarIcon
+          icon={account}
+          label="Account"
+          link="/account"
+          activeColor="#ef4444"
+        />
       </div>
     </nav>
   );
 }
+
+// Button colors
+// #ff8000
+// #00e054
+// #ec4899
+// #40bcf4
+// #ef4444

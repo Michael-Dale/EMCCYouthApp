@@ -1,10 +1,10 @@
 import PageTransition from "../components/PageTransition";
 
-export default function Events() {
+export default function Info() {
   return (
     <PageTransition>
       <div className="p-4">
-        <h1 className="text-2xl font-bold mb-4">Events</h1>
+        <h1 className="text-2xl font-bold mb-4">Info</h1>
         {/* Your contact page content here */}
       </div>
     </PageTransition>

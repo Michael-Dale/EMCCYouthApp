@@ -1,10 +1,10 @@
 import PageTransition from "../components/PageTransition";
 
-export default function Devotions() {
+export default function Blog() {
   return (
     <PageTransition>
       <div className="p-4">
-        <h1 className="text-2xl font-bold mb-4">Devotions</h1>
+        <h1 className="text-2xl font-bold mb-4">Blog</h1>
         {/* Your contact page content here */}
       </div>
     </PageTransition>
