@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import Navbar from "../app/components/Navbar";
 import {
   LoginLink,
   LogoutLink,
@@ -43,6 +44,8 @@ export default async function RootLayout({ children }) {
           )}
         </nav>
         {children}
+        {/* If the user is authenticated the nav bar will show */}
+        {isAuthed ? <Navbar /> : null}
       </body>
     </html>
   );
