@@ -12,7 +12,7 @@ import { useState } from "react";
 export default function Component({ picURL, location, time, description }) {
   const [imageError, setImageError] = useState(false);
   return (
-    <Card className="w-full max-w-sm mx-auto rounded-2xl ">
+    <Card className="w-full max-w-sm mx-auto rounded-2xl mb-3 ">
       <CardHeader className="flex flex-col items-center space-y-2 pb-2">
         <div className="relative w-full h-48 bg-gray-200">
           {!imageError ? (

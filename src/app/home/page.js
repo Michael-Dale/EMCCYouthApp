@@ -9,7 +9,7 @@ export default function HomePage() {
     <>
       <PageTransition>
         {/* Main content of your homepage goes here */}
-        <div className="p-4">
+        <div className="p-4 mb-16">
           <h1 className="text-center text-3xl font-bold mt-4">
             Welcome to My Website
           </h1>
@@ -18,6 +18,12 @@ export default function HomePage() {
             description={"HIKE"}
             time={"11 SEPT | SAT | 8AM"}
             location={"Rietvlei Zoo"}
+          />
+          <EventCard
+            picURL={img}
+            description={"SPORTS DAY"}
+            time={"20 OCT | SAT | 8AM"}
+            location={"ELOHIM CHURCH"}
           />
         </div>
       </PageTransition>
