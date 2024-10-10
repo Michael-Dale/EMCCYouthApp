@@ -14,7 +14,14 @@
 //     </div>
 //   );
 // }
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
 import { MapPin } from "lucide-react";
 
 export default function Component() {
@@ -28,6 +35,11 @@ export default function Component() {
         <p className="text-sm font-medium text-muted-foreground">YOUTH TIME:</p>
         <p className="text-lg font-semibold">FRI 6:30PM-9PM</p>
       </CardContent>
+      <CardFooter className="flex justify-center">
+        <Button className="rounded-full text-lg px-4 py-4 font-bold hover:bg-red-500 hover:text-black">
+          Directions
+        </Button>
+      </CardFooter>
     </Card>
   );
 }
