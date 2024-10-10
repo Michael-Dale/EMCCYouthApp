@@ -9,10 +9,10 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function Component({ picURL }) {
+export default function Component({ picURL, location, time, description }) {
   const [imageError, setImageError] = useState(false);
   return (
-    <Card className="w-full max-w-sm mx-auto rounded-xl ">
+    <Card className="w-full max-w-sm mx-auto rounded-2xl ">
       <CardHeader className="flex flex-col items-center space-y-2 pb-2">
         <div className="relative w-full h-48 bg-gray-200">
           {!imageError ? (
@@ -32,10 +32,10 @@ export default function Component({ picURL }) {
         </div>
       </CardHeader>
       <CardContent className="text-center">
-        <p className="text-sm font-medium text-muted-foreground">
-          Join us on a hike at Rietvlei trails
-        </p>
-        <p className="text-lg font-semibold"> Rietvlei Zoo</p>
+        <p className="text-xl font-extrabold ">{description}</p>
+
+        <p className="text-m font-medium text-muted-foreground ">{location}</p>
+        <p className="text-m font-semibold">{time}</p>
       </CardContent>
       <CardFooter className="flex justify-center">
         <Button className="rounded-full text-lg px-8 py-6 font-bold hover:bg-yellow-400 hover:text-black">
