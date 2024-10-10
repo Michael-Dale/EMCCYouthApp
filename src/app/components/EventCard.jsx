@@ -6,11 +6,10 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MapPin, Clock } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function Component() {
+export default function Component({ picURL }) {
   const [imageError, setImageError] = useState(false);
   return (
     <Card className="w-full max-w-sm mx-auto rounded-xl ">
@@ -18,7 +17,7 @@ export default function Component() {
         <div className="relative w-full h-48 bg-gray-200">
           {!imageError ? (
             <Image
-              src="/pics/image.jpg"
+              src={picURL}
               alt="Rietvlei trails"
               layout="fill"
               objectFit="cover"
@@ -36,14 +35,11 @@ export default function Component() {
         <p className="text-sm font-medium text-muted-foreground">
           Join us on a hike at Rietvlei trails
         </p>
-        <div className="text-center flex items-center space-x-2 ">
-          <MapPin className="h-8 w-8 text-primary " />
-          <p className="text-lg font-semibold"> Rietvlei Zoo</p>
-        </div>
+        <p className="text-lg font-semibold"> Rietvlei Zoo</p>
       </CardContent>
       <CardFooter className="flex justify-center">
         <Button className="rounded-full text-lg px-8 py-6 font-bold hover:bg-yellow-400 hover:text-black">
-          Info
+          + Calendar
         </Button>
       </CardFooter>
     </Card>
