@@ -18,12 +18,14 @@ export default function HomePage() {
             description={"HIKE"}
             time={"11 SEPT | SAT | 8AM"}
             location={"Rietvlei Zoo"}
+            color={"yellow"}
           />
           <EventCard
             picURL={img}
             description={"SPORTS DAY"}
             time={"20 OCT | SAT | 8AM"}
             location={"ELOHIM CHURCH"}
+            color={"purple"}
           />
         </div>
       </PageTransition>

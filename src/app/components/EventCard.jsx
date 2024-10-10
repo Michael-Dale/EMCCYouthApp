@@ -9,10 +9,16 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function Component({ picURL, location, time, description }) {
+export default function Component({
+  picURL,
+  location,
+  time,
+  description,
+  color,
+}) {
   const [imageError, setImageError] = useState(false);
   return (
-    <Card className="w-full max-w-sm mx-auto rounded-2xl mb-3 ">
+    <Card className="w-full max-w-sm mx-auto rounded-2xl mb-6 ">
       <CardHeader className="flex flex-col items-center space-y-2 pb-2">
         <div className="relative w-full h-48 bg-gray-200">
           {!imageError ? (
@@ -38,7 +44,9 @@ export default function Component({ picURL, location, time, description }) {
         <p className="text-m font-semibold">{time}</p>
       </CardContent>
       <CardFooter className="flex justify-center">
-        <Button className="rounded-full text-lg px-8 py-6 font-bold hover:bg-yellow-400 hover:text-black">
+        <Button
+          className={`rounded-full text-lg px-8 py-6 font-bold hover:bg-${color}-400 hover:text-black `}
+        >
           + Calendar
         </Button>
       </CardFooter>
