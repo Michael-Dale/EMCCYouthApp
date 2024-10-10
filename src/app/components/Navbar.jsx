@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 const home = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    class="ionicon"
+    className="ionicon"
     viewBox="0 0 24 24"
     width="30px"
     height="30px"
@@ -25,7 +25,7 @@ const home = () => (
 const blog = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    class="ionicon"
+    className="ionicon"
     viewBox="0 0 512 512"
     width="30px"
     height="30px"
@@ -44,7 +44,7 @@ const blog = () => (
 const contact = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    class="ionicon"
+    className="ionicon"
     viewBox="0 0 512 512"
     width="30px"
     height="30px"
@@ -63,7 +63,7 @@ const contact = () => (
 const info = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    class="ionicon"
+    className="ionicon"
     viewBox="0 0 512 512"
     width="30px"
     height="30px"
@@ -125,7 +125,10 @@ function NavbarIcon({ icon: Icon, label, link, activeColor }) {
 
 export default function Component() {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-black p-4 " style={{ background: 'linear-gradient(to top, #0a0a0a, #000000)' }}>
+    <nav
+      className="fixed bottom-0 left-0 right-0 bg-black p-4 "
+      style={{ background: "linear-gradient(to top, #0a0a0a, #000000)" }}
+    >
       <div className="flex justify-around items-center max-w-screen-lg mx-auto">
         <NavbarIcon
           icon={home}
