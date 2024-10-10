@@ -28,15 +28,15 @@ export default function Component() {
   return (
     <Card className="w-full max-w-sm mx-auto">
       <CardHeader className="flex flex-col items-center space-y-2 pb-2">
-        <MapPin className="h-8 w-8 text-primary" />
-        <h2 className="text-2xl font-bold text-center">EMCC</h2>
+        <MapPin color="#dc2626" className="h-8 w-8 text-primary " />
+        <h2 className="text-2xl font-bold text-center">EMCC YOUTH</h2>
       </CardHeader>
       <CardContent className="text-center">
-        <p className="text-sm font-medium text-muted-foreground">YOUTH TIME:</p>
+        <p className="text-sm font-medium text-muted-foreground">TIME:</p>
         <p className="text-lg font-semibold">FRI 6:30PM-9PM</p>
       </CardContent>
       <CardFooter className="flex justify-center">
-        <Button className="rounded-full text-lg px-4 py-4 font-bold hover:bg-red-500 hover:text-black">
+        <Button className="rounded-full text-lg px-8 py-6 font-bold hover:bg-red-500 hover:text-black">
           Directions
         </Button>
       </CardFooter>
