@@ -44,7 +44,7 @@ function NavbarIcon({ icon: Icon, href, target, label }) {
 
           <NavbarIcon 
             icon={youtube} 
-            href="https://wa.me/27638074854?text=Hello%2C%20how%20are%20you%3F" 
+            href="https://youtube.com/@connectyth?si=ddbjGDs5G5A7oShP" 
             target="_blank" 
           />
         </div>
