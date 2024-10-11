@@ -13,6 +13,8 @@ const DevotionalPost = ({ verse, message, date, username, profilePic }) => {
         <div>
           <span className="text-gray-800 font-semibold text-xl">{username}</span>
           <span className="text-gray-500 text-sm ml-1">{date}</span>
+          {/* Add the DailyDevotional text */}
+          <div className="text-gray-600 text-sm mt-1">@DailyDevotional</div>
         </div>
       </div>
       
