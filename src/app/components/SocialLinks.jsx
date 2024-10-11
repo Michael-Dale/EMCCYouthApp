@@ -26,19 +26,16 @@ function NavbarIcon({ icon: Icon, href, target, label }) {
             icon={whatsapp} 
             href="https://wa.me/27638074854?text=Hello%2C%20how%20are%20you%3F" 
             target="_blank" 
-            label="Send message to Matthew" 
           />
           <NavbarIcon 
             icon={whatsapp} 
             href="" 
             target="_blank" 
-            label="Join Group" 
           />
           <NavbarIcon 
             icon={instagram} 
             href="https://www.instagram.com/connect_emcc?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
             target="_blank" 
-            label="Instagram" 
           />
         </div>
       </nav>
