@@ -39,7 +39,11 @@ export default function Component({ picURL, location, time, description }) {
       </CardContent>
       <CardFooter className="flex justify-center">
         <Button
+<<<<<<< HEAD
           className={`rounded-full text-lg px-8 py-6 font-bold hover:bg-yellow-400 hover:text-black `}
+=======
+          className={`rounded-full text-lg px-8 py-6 font-bold hover:bg-${color}-400 hover:text-black `}
+>>>>>>> parent of ebefd15 (updated event card)
         >
           + Calendar
         </Button>
