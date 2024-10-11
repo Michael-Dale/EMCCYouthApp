@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar.jsx";
 import EventCard from "../components/EventCard.jsx";
 
 import PageTransition from "../components/PageTransition.js";
-const img = "/pics/img.jpg";
+const img = "/pics/Facebook.png";
 export default function HomePage() {
   return (
     <>
