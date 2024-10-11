@@ -35,13 +35,13 @@ export default function Component({ picURL, location, time, description }) {
         </div>
       </CardHeader>
       <CardContent className="text-center">
-      <p className="text-xl font-extrabold">{description}</p>
-      <p className="text-m font-medium text-muted-foreground">{location}</p>
+        <p className="text-xl font-extrabold">{description}</p>
+        <p className="text-m font-medium text-muted-foreground">{location}</p>
         <p className="text-m font-semibold">{time}</p>
       </CardContent>
       <CardFooter className="flex justify-center">
         <Button
-           className={`rounded-full text-lg px-8 py-6 font-bold hover:bg-${color}-400 hover:text-black`}
+          className={`rounded-full text-lg px-8 py-6 font-bold hover:bg-yellow-400 hover:text-black`}
         >
           + Calendar
         </Button>
