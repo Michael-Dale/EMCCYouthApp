@@ -19,10 +19,10 @@ const DevotionalPost = ({ verse, message, date, username, profilePic }) => {
       </div>
       
       {/* Verse and Message */}
-      <div className="verse text-gray-600 italic mb-2 text-xl">
+      <div className="verse text-grey-800 italic mb-2 text-xl">
         "{verse}"
       </div>
-      <div className="message text-gray-800 text-lg">
+      <div className="message text-grey-800 text-xl">
         {message}
       </div>
     </div>
