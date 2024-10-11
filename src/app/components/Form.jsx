@@ -20,7 +20,7 @@ export default function Form() {
     firstName: "",
     lastName: "",
     contactInfo: "",
-    moreInfo: "",
+    requestType: "",
     message: "",
   });
 
@@ -92,18 +92,19 @@ export default function Form() {
           />
         </div>
         <div>
-          <Label htmlFor="moreInfo">More Info</Label>
+          <Label htmlFor="requestType">Select Request Type</Label>
           <Select
-            name="moreInfo"
+            name="requestType"
             onValueChange={(value) =>
-              handleInputChange({ target: { name: "moreInfo", value } })
+              handleInputChange({ target: { name: "requestType", value } })
             }
           >
             <SelectTrigger>
               <SelectValue placeholder="Select option" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="prayer">Prayer requests</SelectItem>
+              <SelectItem value="moreInfo">More Info</SelectItem>
+              <SelectItem value="prayer">Prayer Requests</SelectItem>
               <SelectItem value="suggestions">Suggestions</SelectItem>
               <SelectItem value="counseling">Counseling</SelectItem>
               <SelectItem value="other">Other</SelectItem>
