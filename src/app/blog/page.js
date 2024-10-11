@@ -11,6 +11,8 @@ export default function Blog() {
         verse="Philippians 4:13 - I can do all things through Christ who strengthens me."
         message="Remember, with faith and determination, you can overcome any challenge."
         date="2024/10/11"
+        username="ConnectYouth"
+        profilePic="/icons/connect youth logo.svg"
       />
       </div>
     </PageTransition>
