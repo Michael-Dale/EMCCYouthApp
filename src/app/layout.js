@@ -45,8 +45,7 @@ export default async function RootLayout({ children }) {
         </nav>
         {children}
         {/* If the user is authenticated the nav bar will show */}
-        {/* {isAuthed ? <Navbar /> : null} */}
-        <Navbar />
+        {isAuthed ? <Navbar /> : null}
       </body>
     </html>
   );
