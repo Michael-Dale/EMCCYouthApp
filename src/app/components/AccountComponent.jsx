@@ -13,15 +13,33 @@ export default function AccountPage() {
 
   const shareContent = () => {
     if (navigator.share) {
+      // Web Share API is supported
       navigator.share({
         title: 'Check out this awesome web app!',
         text: 'I found this really cool app. Have a look!',
-        url: window.location.href, // Share the current page URL
+        url: 'https://yourhomepage.com',  // Replace with your homepage URL
       })
       .then(() => console.log('Content shared successfully!'))
       .catch((error) => console.log('Error sharing content:', error));
     } else {
-      console.log('Web Share API is not supported in your browser.');
+      // Fallback for unsupported browsers (e.g., iOS)
+      fallbackShare();
+    }
+  };
+
+  const fallbackShare = () => {
+    // For unsupported devices (like older iOS versions)
+    const shareUrl = 'https://yourhomepage.com';  // Replace with your homepage URL
+    const message = `Copy this link to share: ${shareUrl}`;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareUrl)
+        .then(() => {
+          alert("Link copied to clipboard: " + shareUrl);
+        })
+        .catch((error) => console.log('Error copying link to clipboard:', error));
+    } else {
+      // Fallback for browsers without clipboard support
+      prompt(message, shareUrl);
     }
   };
 
