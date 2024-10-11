@@ -37,6 +37,21 @@ Exhale: For you are with me"
         username="ConnectYouth"
         profilePic="/icons/connect youth logo.svg"
       />
+
+<DevotionalPost
+        verse="Isaiah 41:10 
+“Fear not, for I am with you;
+Be not dismayed, for I am your God. 
+I will strengthen you,
+I will uphold you with My righteous right hand”"
+        message="Remember, with faith and determination, you can overcome any challenge.
+Remember, with faith and determination, you can overcome any challenge.
+Remember, with faith and determination, you can overcome any challenge.
+Remember, with faith and determination, y."
+        date="2024/10/11"
+        username="ConnectYouth"
+        profilePic="/icons/connect youth logo.svg"
+      />
       </div>
     </PageTransition>
   );
