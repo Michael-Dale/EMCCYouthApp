@@ -9,15 +9,17 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useState } from "react";
 
-// Function to generate a random hex color
-const getRandomColor = () => {
-  const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-  return `#${randomColor}`;
+// Function to generate a random pastel color
+const getRandomPastelColor = () => {
+  const r = Math.floor(Math.random() * 127 + 128); // 128 - 255 for pastel
+  const g = Math.floor(Math.random() * 127 + 128); // 128 - 255 for pastel
+  const b = Math.floor(Math.random() * 127 + 128); // 128 - 255 for pastel
+  return `rgb(${r}, ${g}, ${b})`;
 };
 
 export default function Component({ picURL, location, time, description }) {
   const [imageError, setImageError] = useState(false);
-  const randomHoverColor = getRandomColor(); // Generate a random hover color
+  const randomHoverColor = getRandomPastelColor(); // Generate a random pastel hover color
 
   return (
     <Card className="w-full max-w-sm mx-auto rounded-2xl mb-6">
@@ -56,7 +58,7 @@ export default function Component({ picURL, location, time, description }) {
             transition: 'background-color 0.3s ease, color 0.3s ease',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = randomHoverColor; // Set random hover color
+            e.currentTarget.style.backgroundColor = randomHoverColor; // Set pastel hover color
             e.currentTarget.style.color = 'white'; // Change text color on hover
           }}
           onMouseLeave={(e) => {
