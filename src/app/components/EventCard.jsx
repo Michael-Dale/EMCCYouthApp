@@ -9,13 +9,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function Component({
-  picURL,
-  location,
-  time,
-  description,
-  color,
-}) {
+export default function Component({ picURL, location, time, description }) {
   const [imageError, setImageError] = useState(false);
   return (
     <Card className="w-full max-w-sm mx-auto rounded-2xl mb-6 ">
@@ -45,7 +39,7 @@ export default function Component({
       </CardContent>
       <CardFooter className="flex justify-center">
         <Button
-          className={`rounded-full text-lg px-8 py-6 font-bold hover:bg-${color}-400 hover:text-black `}
+          className={`rounded-full text-lg px-8 py-6 font-bold hover:bg-yellow-400 hover:text-black `}
         >
           + Calendar
         </Button>
