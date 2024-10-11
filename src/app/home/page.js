@@ -9,7 +9,7 @@ export default function HomePage() {
     <>
       <PageTransition>
         {/* Main content of your homepage goes here */}
-        <div className="p-4 mb-16">
+        <div className="p-4">
           <h1 className="text-center text-3xl font-bold mt-4">
             Welcome to My Website
           </h1>

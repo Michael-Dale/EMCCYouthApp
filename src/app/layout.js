@@ -30,7 +30,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
         <nav className="flex justify-between items-center py-8 px-24">
           <h1 className="font-bold text-2xl">EMCC</h1>
@@ -43,9 +43,14 @@ export default async function RootLayout({ children }) {
             </div>
           )}
         </nav>
-        {children}
-        {/* If the user is authenticated the nav bar will show */}
-        {isAuthed ? <Navbar /> : null}
+        <main className={`flex-grow ${isAuthed ? "pb-20" : ""}`}>
+          {children}
+        </main>
+        {isAuthed && (
+          <footer className="fixed bottom-0 left-0 right-0 h-16">
+            <Navbar />
+          </footer>
+        )}
       </body>
     </html>
   );
