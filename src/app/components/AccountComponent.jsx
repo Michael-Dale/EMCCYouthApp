@@ -11,8 +11,22 @@ import {
 export default function AccountPage() {
   const [userName, setUserName] = useState("John Doe");
 
+  const shareContent = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Check out this awesome web app!',
+        text: 'I found this really cool app. Have a look!',
+        url: window.location.href, // Share the current page URL
+      })
+      .then(() => console.log('Content shared successfully!'))
+      .catch((error) => console.log('Error sharing content:', error));
+    } else {
+      console.log('Web Share API is not supported in your browser.');
+    }
+  };
+
   const menuItems = [
-    { icon: Share2, label: "Share", action: () => console.log("Share tapped") },
+    { icon: Share2, label: "Share", action: shareContent },  // Share button with Web Share API
     { icon: Info, label: "About", action: () => console.log("About tapped") },
     {
       icon: User,
