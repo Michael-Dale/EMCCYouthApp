@@ -8,6 +8,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 
+
 export default function AccountPage() {
   const [userName, setUserName] = useState("John Doe");
 
