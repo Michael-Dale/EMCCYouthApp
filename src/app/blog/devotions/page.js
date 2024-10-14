@@ -1,5 +1,5 @@
 import PageTransition from "../../components/PageTransition";
-import DevotionalPost from '../../components/DevotionalPost';
+import DevotionalPost from "../../components/DevotionalPost";
 
 export default function Blog() {
   return (
@@ -8,19 +8,19 @@ export default function Blog() {
         <h1 className="text-2xl font-bold mb-4">Blog</h1>
         {/* Your contact page content here */}
         <DevotionalPost
-        verse="Philippians 4:13 - I can do all things through Christ who strengthens me."
-        message="Remember, with faith and determination, you can overcome any challenge."
-        date="2024/10/11"
-        username="ConnectYouth"
-        profilePic="/icons/connect youth logo.svg"
-      />
+          verse="Philippians 4:13 - I can do all things through Christ who strengthens me."
+          message="Remember, with faith and determination, you can overcome any challenge."
+          date="2024/10/11"
+          username="ConnectYouth"
+          profilePic="/icons/connect youth logo.svg"
+        />
         <DevotionalPost
-        verse="Isaiah 41:10 
+          verse="Isaiah 41:10 
 “Fear not, for I am with you;
 Be not dismayed, for I am your God. 
 I will strengthen you,
 I will uphold you with My righteous right hand”"
-        message="What an amazing promise! God is telling you not to fear or be dismayed. Dismay is another word for distress (extreme anxiety, sorrow or pain) Why shouldn’t you fear or be dismayed? Because He is always with you! There is no reason to fear, regardless of your situation or circumstances. God is always with you, and He is telling you in this scripture He won’t leave you alone. 
+          message="What an amazing promise! God is telling you not to fear or be dismayed. Dismay is another word for distress (extreme anxiety, sorrow or pain) Why shouldn’t you fear or be dismayed? Because He is always with you! There is no reason to fear, regardless of your situation or circumstances. God is always with you, and He is telling you in this scripture He won’t leave you alone. 
 
 God promises that He will strengthen and help you! When you’re feeling like you can’t go on or you just don’t know how you’re going to get through the day, God will be right with you to provide you with the strength and help you need, to get through whatever you’re facing.
 
@@ -33,25 +33,25 @@ Breath Prayers are short, simple prayers inspired by scripture. Breath Prayers h
 Breath Prayer: Isaiah 41:10
 Inhale: I won’t be afraid
 Exhale: For you are with me"
-        date="2024/10/11"
-        username="ConnectYouth"
-        profilePic="/icons/connect youth logo.svg"
-      />
+          date="2023-05-20T12:00:00Z"
+          username="ConnectYouth"
+          profilePic="/icons/connect youth logo.svg"
+        />
 
-<DevotionalPost
-        verse="Isaiah 41:10 
+        <DevotionalPost
+          verse="Isaiah 41:10 
 “Fear not, for I am with you;
 Be not dismayed, for I am your God. 
 I will strengthen you,
 I will uphold you with My righteous right hand”"
-        message="Remember, with faith and determination, you can overcome any challenge.
+          message="Remember, with faith and determination, you can overcome any challenge.
 Remember, with faith and determination, you can overcome any challenge.
 Remember, with faith and determination, you can overcome any challenge.
 Remember, with faith and determination, y."
-        date="2024/10/11"
-        username="ConnectYouth"
-        profilePic="/icons/connect youth logo.svg"
-      />
+          date="2024/10/11"
+          username="ConnectYouth"
+          profilePic="/icons/connect youth logo.svg"
+        />
       </div>
     </PageTransition>
   );
