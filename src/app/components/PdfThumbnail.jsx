@@ -10,14 +10,14 @@ const PdfThumbnail = ({ pdfUrl, title, imgSrc }) => {
   return (
     <div
       onClick={handlePdfClick}
-      className="cursor-pointer border rounded-lg p-4 hover:shadow-lg transition-shadow duration-200"
+      className="cursor-pointer border rounded-lg p-4 hover:shadow-lg transition-shadow duration-200 m-4" // Added margin
     >
       {/* Display a PDF thumbnail */}
       <Image
         src={imgSrc} // Use the imgSrc prop for the thumbnail image path
         alt="PDF Thumbnail"
-        width={120}
-        height={150}
+        width={150} // Increased width
+        height={200} // Increased height
         className="mx-auto mb-3"
       />
       <h3 className="text-center text-lg font-semibold text-gray-700">{title}</h3>
