@@ -83,7 +83,7 @@ const DevotionalPost = ({ verse, message, date, username, profilePic }) => {
         <div>
           <div className="flex items-center">
             {" "}
-            <span className="text-gray-800 font-semibold text-xl mr-2">
+            <span className="text-gray-800 font-semibold text-xl mr-1">
               {username}
             </span>
             <Bluetick className="w-3 h-3 " />
