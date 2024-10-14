@@ -4,8 +4,10 @@ import {
   LogoutLink,
   RegisterLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
-
-export default function Home() {
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+export default async function Home() {
+  const { isAuthenticated } = getKindeServerSession();
+  const isAuthed = await isAuthenticated();
   return (
     <>
       {/* <LoginLink>Sign in</LoginLink>
