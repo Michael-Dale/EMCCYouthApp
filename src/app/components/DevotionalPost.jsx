@@ -53,7 +53,7 @@ const DevotionalPost = ({ verse, message, date, username, profilePic }) => {
 
   const handleCopy = useCallback(() => {
     navigator.clipboard
-      .writeText(message)
+      .writeText(verse+message)
       .then(() => {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
@@ -61,7 +61,7 @@ const DevotionalPost = ({ verse, message, date, username, profilePic }) => {
       .catch((err) => {
         console.error("Failed to copy text: ", err);
       });
-  }, [message]);
+  }, [verse+message]);
 
   return (
     <div className="devotional-post border border-gray-300 rounded-2xl p-4 shadow-md max-w-sm mx-auto my-4 bg-white transition-shadow duration-200 hover:shadow-lg">
