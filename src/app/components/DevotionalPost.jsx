@@ -52,16 +52,40 @@ const DevotionalPost = ({ verse, message, date, username, profilePic }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = useCallback(() => {
-    navigator.clipboard
-      .writeText(verse+message)
-      .then(() => {
+    if (navigator.clipboard && window.isSecureContext) {
+      // navigator.clipboard is available in secure contexts (https)
+      navigator.clipboard
+        .writeText(verse + message)
+        .then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+        })
+        .catch((err) => {
+          console.error("Failed to copy text: ", err);
+        });
+    } else {
+      // Fallback for iOS and insecure contexts
+      const textToCopy = verse + message;
+      const textArea = document.createElement("textarea");
+      textArea.value = textToCopy;
+      // Prevent scrolling to the bottom of the page
+      textArea.style.position = "fixed";
+      textArea.style.top = 0;
+      textArea.style.left = 0;
+      textArea.style.opacity = 0;
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand("copy");
         setCopied(true);
         setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
-      })
-      .catch((err) => {
-        console.error("Failed to copy text: ", err);
-      });
-  }, [verse+message]);
+      } catch (err) {
+        console.error("Fallback: Oops, unable to copy", err);
+      }
+      document.body.removeChild(textArea);
+    }
+  }, [verse, message]);
 
   return (
     <div className="devotional-post border border-gray-300 rounded-2xl p-4 shadow-md max-w-sm mx-auto my-4 bg-white transition-shadow duration-200 hover:shadow-lg">

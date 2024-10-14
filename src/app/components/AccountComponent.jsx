@@ -1,18 +1,11 @@
-import { useState } from "react";
-import {
-  Share2,
-  User,
-  FileText,
-  Info,
-  LogOut,
-  ChevronRight,
-} from "lucide-react";
-
+import { useState, useCallback } from "react";
+import { Share2, User, FileText, Info, LogOut, ChevronRight } from "lucide-react";
 
 export default function AccountPage() {
   const [userName, setUserName] = useState("John Doe");
+  const [copied, setCopied] = useState(false); // State to track copy status
 
-  const shareContent = () => {
+  const shareContent = useCallback(() => {
     if (navigator.share) {
       // Web Share API is supported
       navigator.share({
@@ -20,29 +13,46 @@ export default function AccountPage() {
         text: 'I found this really cool app. Have a look!',
         url: 'https://yourhomepage.com',  // Replace with your homepage URL
       })
-      .then(() => console.log('Content shared successfully!'))
-      .catch((error) => console.log('Error sharing content:', error));
+        .then(() => console.log('Content shared successfully!'))
+        .catch((error) => console.log('Error sharing content:', error));
     } else {
       // Fallback for unsupported browsers (e.g., iOS)
       fallbackShare();
     }
-  };
+  }, []);
 
-  const fallbackShare = () => {
-    // For unsupported devices (like older iOS versions)
+  const fallbackShare = useCallback(() => {
     const shareUrl = 'https://yourhomepage.com';  // Replace with your homepage URL
-    const message = `Copy this link to share: ${shareUrl}`;
-    if (navigator.clipboard) {
+    if (navigator.clipboard && window.isSecureContext) {
+      // Use clipboard if available
       navigator.clipboard.writeText(shareUrl)
         .then(() => {
-          alert("Link copied to clipboard: " + shareUrl);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000); // Reset copied status after 2 seconds
         })
         .catch((error) => console.log('Error copying link to clipboard:', error));
     } else {
       // Fallback for browsers without clipboard support
-      prompt(message, shareUrl);
+      const textArea = document.createElement("textarea");
+      textArea.value = shareUrl;
+      textArea.style.position = "fixed";  // Avoid scrolling to bottom
+      textArea.style.top = 0;
+      textArea.style.left = 0;
+      textArea.style.opacity = 0;
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        document.execCommand("copy");
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000); // Reset copied status after 2 seconds
+      } catch (err) {
+        console.error("Fallback: Unable to copy", err);
+      }
+      document.body.removeChild(textArea);
     }
-  };
+  }, []);
 
   const menuItems = [
     { icon: Share2, label: "Share", action: shareContent },  // Share button with Web Share API
@@ -92,6 +102,10 @@ export default function AccountPage() {
                   </div>
                   <ChevronRight className="w-5 h-5 text-gray-400" />
                 </button>
+                {/* Show "Copied" message when the content is copied */}
+                {item.label === "Share" && copied && (
+                  <span className="text-sm text-gray-500 ml-4">Copied!</span>
+                )}
               </li>
             ))}
           </ul>
