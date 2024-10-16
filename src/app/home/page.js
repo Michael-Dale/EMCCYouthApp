@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar.jsx";
 import EventCard from "../components/EventCard.jsx";
+import YouTubeLatestVideo from "../components/YouTubeLatestVideo"; // Adjust the path as necessary
 
 import PageTransition from "../components/PageTransition.js";
 const img = "/pics/Facebook.png";
@@ -25,6 +26,7 @@ export default function HomePage() {
             time={"20 OCT | SAT | 8AM"}
             location={"ELOHIM CHURCH"}
           />
+             <YouTubeLatestVideo />
         </div>
       </PageTransition>
       {/* <a href="https://wa.me/27638074854?text=Hello%2C%20how%20are%20you%3F" target="_blank">Send WhatsApp Message to Matthew</a>

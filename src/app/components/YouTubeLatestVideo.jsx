@@ -2,22 +2,28 @@
 import React, { useEffect, useState } from "react";
 
 const YouTubeLatestVideo = () => {
-  const API_KEY = "YOUR_API_KEY"; // Replace with your YouTube Data API key
-  const CHANNEL_ID = "UCfTO7mV08O4l0iX1DCApZVA"; // ConnectYTH channel ID
+  const API_KEY = process.env.NEXT_PUBLIC_YT_API_KEY;
+
+  const CHANNEL_ID = process.env.NEXT_PUBLIC_YT_CHANNEL_ID;
+
   const [latestVideo, setLatestVideo] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchLatestVideo = async () => {
       const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&order=date&part=snippet&type=video&maxResults=1`;
-
+    
       try {
         const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
+        // Log the status and response for debugging
+        console.log("Response status:", response.status);
         const data = await response.json();
-
+        console.log("Response data:", data); // Log response data
+    
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status} - ${data.error.message}`);
+        }
+        
         // Check if there are any items returned
         if (data.items.length > 0) {
           setLatestVideo(data.items[0]);
@@ -28,6 +34,7 @@ const YouTubeLatestVideo = () => {
         setError("Error fetching the latest video: " + error.message);
       }
     };
+    
 
     fetchLatestVideo();
   }, [API_KEY]);

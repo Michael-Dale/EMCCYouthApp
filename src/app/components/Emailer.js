@@ -1,4 +1,6 @@
 const nodemailer = require('nodemailer');
+require('dotenv').config();
+
 
 const sender = async () => {
   try {
@@ -6,15 +8,15 @@ const sender = async () => {
     let transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'emccyouthemail@gmail.com', // Your Gmail account
-        pass: '********' // Your Gmail password (or app-specific password if 2FA is enabled)
+        user: process.env.EMAIL_USER, // Your Gmail account from .env
+        pass: process.env.EMAIL_PASS   // Your Gmail password from .env
       }
     });
 
     // Define the email options
     let mailOptions = {
-      from: 'emccyouthemail@gmail.com', // Sender's email address
-      to: 'mcdale0100@gmail.com', // List of recipients
+      from: process.env.EMAIL_USER, // Sender's email address from .env
+      to: process.env.EMAIL_RECEIVER , // List of recipients
       subject: 'Test Email', // Subject of the email
       text: 'Hello from Node.js!' // Plain text body
     };

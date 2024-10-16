@@ -1,6 +1,6 @@
 import PageTransition from "../components/PageTransition";
 import DevotionalPost from '../components/DevotionalPost';
-import YouTubeLatestVideo from "../components/YouTubeLatestVideo"; // Adjust the path as necessary
+
 
 export default function Blog() {
   return (
@@ -54,7 +54,6 @@ Remember, with faith and determination, y."
         profilePic="/icons/connect youth logo.svg"
       />
 
-    <YouTubeLatestVideo />
       </div>
     </PageTransition>
   );
