@@ -1,32 +1,59 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
+// In-memory cache to store the video and timestamp
+let latestVideoCache = null;
+let lastFetchedDate = null;
+
 const YouTubeLatestVideo = () => {
   const API_KEY = process.env.NEXT_PUBLIC_YT_API_KEY;
-
   const CHANNEL_ID = process.env.NEXT_PUBLIC_YT_CHANNEL_ID;
 
   const [latestVideo, setLatestVideo] = useState(null);
   const [error, setError] = useState(null);
 
+  // Function to check if the fetch is needed based on the last fetched date
+  const isFetchNeeded = () => {
+    const currentDate = new Date();
+
+    // If there's no last fetched date or it's a different day, fetch is needed
+    if (!lastFetchedDate || 
+        lastFetchedDate.getDate() !== currentDate.getDate() || 
+        lastFetchedDate.getMonth() !== currentDate.getMonth() || 
+        lastFetchedDate.getFullYear() !== currentDate.getFullYear()) {
+      return true;
+    }
+    return false;
+  };
+
   useEffect(() => {
     const fetchLatestVideo = async () => {
+      // Check if we already have cached data and if the fetch is not needed
+      if (latestVideoCache && !isFetchNeeded()) {
+        setLatestVideo(latestVideoCache); // Use the cached video
+        return;
+      }
+
+      // Otherwise, fetch new video data from the YouTube API
       const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&order=date&part=snippet&type=video&maxResults=1`;
-    
+
       try {
         const response = await fetch(url);
-        // Log the status and response for debugging
-        console.log("Response status:", response.status);
         const data = await response.json();
-        console.log("Response data:", data); // Log response data
-    
+
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status} - ${data.error.message}`);
+          throw new Error(
+            `HTTP error! Status: ${response.status} - ${data.error.message}`
+          );
         }
-        
-        // Check if there are any items returned
+
         if (data.items.length > 0) {
-          setLatestVideo(data.items[0]);
+          const video = data.items[0];
+          setLatestVideo(video);
+
+          // Update the in-memory cache
+          latestVideoCache = video;
+          lastFetchedDate = new Date(); // Store the current fetch time
         } else {
           setError("No videos found for this channel.");
         }
@@ -34,38 +61,35 @@ const YouTubeLatestVideo = () => {
         setError("Error fetching the latest video: " + error.message);
       }
     };
-    
 
     fetchLatestVideo();
-  }, [API_KEY]);
+  }, [API_KEY, CHANNEL_ID]);
 
   if (error) {
     return <div className="text-red-500">{error}</div>;
   }
 
   return (
-    <div className="flex flex-col items-center p-4">
+    <div className="flex justify-center p-4">
       {latestVideo ? (
-        <div className="bg-white border rounded-lg shadow-lg p-4">
+        // Wrap the entire component in an anchor tag to make it clickable
+        <a
+          href={`https://www.youtube.com/watch?v=${latestVideo.id.videoId}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block max-w-max bg-white border rounded-lg shadow-lg p-4 text-center"
+        >
           <h3 className="text-lg font-semibold text-gray-700 mb-2">
             Latest Video: {latestVideo.snippet.title}
           </h3>
-          <a
-            href={`https://www.youtube.com/watch?v=${latestVideo.id.videoId}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 underline"
-          >
-            Watch it here
-          </a>
-          <div className="mt-2">
+          <div className="flex justify-center items-center mt-2">
             <img
               src={latestVideo.snippet.thumbnails.high.url}
               alt="Latest Video Thumbnail"
               className="rounded-lg"
             />
           </div>
-        </div>
+        </a>
       ) : (
         <div>Loading...</div>
       )}

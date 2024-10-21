@@ -2,9 +2,17 @@ import React from "react";
 import Navbar from "../components/Navbar.jsx";
 import EventCard from "../components/EventCard.jsx";
 import YouTubeLatestVideo from "../components/YouTubeLatestVideo"; // Adjust the path as necessary
+import ImageCarousel from '../components/ImageCarousel.jsx';
 
 import PageTransition from "../components/PageTransition.js";
 const img = "/pics/Facebook.png";
+const images = [
+  '/pics/1.jpg',
+  '/pics/2.jpg',
+  '/pics/3.jpg',
+  '/pics/4.jpg',
+  '/pics/5.jpg',
+];
 export default function HomePage() {
   return (
     <>
@@ -14,6 +22,8 @@ export default function HomePage() {
           <h1 className="text-center text-3xl font-bold mt-4">
             Welcome to My Website
           </h1>
+          <ImageCarousel images={images} />
+
           <EventCard
             picURL={img}
             description={"HIKE"}
