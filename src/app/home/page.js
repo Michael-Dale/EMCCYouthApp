@@ -4,6 +4,7 @@ import YouTubeLatestVideo from "../components/YouTubeLatestVideo"; // Adjust the
 import ImageCarousel from '../components/ImageCarousel.jsx';
 import DevotionalPost from "../components/DevotionalPost.jsx";
 import PdfThumbnail from "../components/PdfThumbnail";
+import BlogPostSnippet from '../components/BlogPostSnippet ';
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -88,7 +89,10 @@ I will uphold you with My righteous right hand”`}
 
 <div className="border border-gray-300 rounded-2xl p-4 shadow-md max-w-md mx-auto my-4 bg-white transition-shadow duration-200 hover:shadow-lg">
   <h2 className="text-gray-800 text-2xl font-semibold text-center">Latest Testimony</h2>
- 
+
+
+
+  <BlogPostSnippet id={1} name={'John Doe'}  date={'2024-10-16'}  title={'My First Blog Post'} content={'This is the full content of the first post.'} />
   <div className="text-center mt-4">
     <Link
       href="/blog/testimonies"
