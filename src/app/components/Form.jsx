@@ -1,20 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
-export default function Form() {
+export default function StyledForm() {
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -32,100 +25,114 @@ export default function Form() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", { isAnonymous, ...formData });
-    // Handle form submission logic here
+  
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ isAnonymous, ...formData }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to send email');
+      }
+  
+      const data = await response.json();
+      console.log(data.message); // "Email sent successfully"
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-6 max-w-md mx-auto p-6 bg-background rounded-lg shadow-md"
-    >
-      <RadioGroup
-        defaultValue="non-anonymous"
-        onValueChange={(value) => setIsAnonymous(value === "anonymous")}
-      >
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="non-anonymous" id="non-anonymous" />
-          <Label htmlFor="non-anonymous">Non-Anonymous</Label>
-        </div>
-        <div className="flex items-center space-x-2">
-          <RadioGroupItem value="anonymous" id="anonymous" />
-          <Label htmlFor="anonymous">Anonymous</Label>
-        </div>
-      </RadioGroup>
-
-      <div className="space-y-4">
-        <div>
-          <Label htmlFor="firstName">First Name</Label>
-          <Input
-            id="firstName"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleInputChange}
-            disabled={isAnonymous}
-            className={isAnonymous ? "bg-muted text-muted-foreground" : ""}
-          />
-        </div>
-        <div>
-          <Label htmlFor="lastName">Last Name</Label>
-          <Input
-            id="lastName"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleInputChange}
-            disabled={isAnonymous}
-            className={isAnonymous ? "bg-muted text-muted-foreground" : ""}
-          />
-        </div>
-        <div>
-          <Label htmlFor="contactInfo">Phone number/email</Label>
-          <Input
-            id="contactInfo"
-            name="contactInfo"
-            value={formData.contactInfo}
-            onChange={handleInputChange}
-            disabled={isAnonymous}
-            className={isAnonymous ? "bg-muted text-muted-foreground" : ""}
-          />
-        </div>
-        <div>
-          <Label htmlFor="requestType">Select Request Type</Label>
-          <Select
-            name="requestType"
-            onValueChange={(value) =>
-              handleInputChange({ target: { name: "requestType", value } })
-            }
+    <div className="form-wrapper border border-gray-300 rounded-2xl p-6 shadow-md max-w-md mx-auto my-6 bg-grey transition-shadow duration-200 hover:shadow-lg">
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="flex justify-center items-center space-x-4 mb-4">
+          <Label htmlFor="anonymous" className="text-gray-800 font-semibold">Submit anonymous</Label>
+          <button
+            type="button"
+            aria-pressed={isAnonymous}
+            onClick={() => setIsAnonymous(!isAnonymous)}
+            className={`relative inline-flex items-center h-6 w-12 rounded-full transition-colors duration-200 focus:outline-none ${isAnonymous ? "bg-blue-500" : "bg-gray-300"}`}
           >
-            <SelectTrigger>
-              <SelectValue placeholder="Select option" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="moreInfo">More Info</SelectItem>
-              <SelectItem value="prayer">Prayer Requests</SelectItem>
-              <SelectItem value="suggestions">Suggestions</SelectItem>
-              <SelectItem value="counseling">Counseling</SelectItem>
-              <SelectItem value="other">Other</SelectItem>
-            </SelectContent>
-          </Select>
+            <span
+              className={`inline-block w-5 h-5 transform rounded-full bg-white transition-transform duration-200 ${isAnonymous ? "translate-x-6" : "translate-x-1"}`}
+            />
+          </button>
         </div>
-        <div>
-          <Label htmlFor="message">Message</Label>
-          <Textarea
-            id="message"
-            name="message"
-            value={formData.message}
-            onChange={handleInputChange}
-            className="min-h-[100px]"
-          />
-        </div>
-      </div>
 
-      <Button type="submit" className="w-full">
-        Submit
-      </Button>
-    </form>
+        <div className="space-y-4">
+          <div>
+            <Label htmlFor="firstName" className="text-gray-800">First Name</Label>
+            <Input
+              id="firstName"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleInputChange}
+              disabled={isAnonymous}
+              className={isAnonymous ? "bg-muted text-muted-foreground" : ""}
+            />
+          </div>
+          <div>
+            <Label htmlFor="lastName" className="text-gray-800">Last Name</Label>
+            <Input
+              id="lastName"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleInputChange}
+              disabled={isAnonymous}
+              className={isAnonymous ? "bg-muted text-muted-foreground" : ""}
+            />
+          </div>
+          <div>
+            <Label htmlFor="contactInfo" className="text-gray-800">Phone number/email</Label>
+            <Input
+              id="contactInfo"
+              name="contactInfo"
+              value={formData.contactInfo}
+              onChange={handleInputChange}
+              disabled={isAnonymous}
+              className={isAnonymous ? "bg-muted text-muted-foreground" : ""}
+            />
+          </div>
+          <div>
+            <Label htmlFor="requestType" className="text-gray-800">Select Request Type</Label>
+            <Select
+              name="requestType"
+              onValueChange={(value) => handleInputChange({ target: { name: "requestType", value } })}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select option" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="moreInfo">More Info</SelectItem>
+                <SelectItem value="prayer">Prayer Requests</SelectItem>
+                <SelectItem value="suggestions">Suggestions</SelectItem>
+                <SelectItem value="counseling">Counseling</SelectItem>
+                <SelectItem value="other">Other</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label htmlFor="message" className="text-gray-800">Message</Label>
+            <Textarea
+              id="message"
+              name="message"
+              value={formData.message}
+              onChange={handleInputChange}
+              className="min-h-[100px]"
+            />
+          </div>
+        </div>
+
+        <Button type="submit" className="w-full">
+          Submit
+        </Button>
+      </form>
+    </div>
   );
 }
