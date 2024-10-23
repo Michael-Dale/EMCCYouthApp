@@ -52,7 +52,7 @@ export default function StyledForm() {
     <div className="form-wrapper border border-gray-300 rounded-2xl p-6 shadow-md max-w-md mx-auto my-6 bg-grey transition-shadow duration-200 hover:shadow-lg">
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="flex justify-center items-center space-x-4 mb-4">
-          <Label htmlFor="anonymous" className="text-gray-800 font-semibold">Submit anonymous</Label>
+          <Label htmlFor="anonymous" className="text-gray-800 font-semibold">Submit anonymously</Label>
           <button
             type="button"
             aria-pressed={isAnonymous}
