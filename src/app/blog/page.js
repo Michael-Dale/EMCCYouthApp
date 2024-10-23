@@ -55,13 +55,18 @@ Remember, with faith and determination, y."
           profilePic="/icons/connect youth logo.svg"
         />
       </div>
-      <Link
-        href="/blog/devotions"
-        className="inline-flex items-center justify-center w-full sm:w-auto px-4 py-2 text-sm font-medium text-black hover:bg-black rounded-md transition-colors duration-300 ease-in-out"
-      >
-        <span>View all devotions</span>
-        <ArrowRight className="ml-2 h-4 w-4" />
-      </Link>
+      <div className="border border-gray-300 rounded-2xl p-4 shadow-md max-w-lg mx-auto my-4 bg-white transition-shadow duration-200 hover:shadow-lg">
+      <h2 className="text-gray-800 text-2xl font-semibold">Latest Devotion</h2>
+      <div className="text-center mt-4">
+        <Link
+          href="/blog/devotions"
+          className="inline-flex items-center justify-center w-full sm:w-auto px-4 py-2 text-sm font-medium text-black hover:bg-black hover:text-white rounded-md transition-colors duration-300 ease-in-out"
+        >
+          <span>View all devotions</span>
+          <ArrowRight className="ml-2 h-4 w-4" />
+        </Link>
+      </div>
+    </div>
     </PageTransition>
   );
 }
