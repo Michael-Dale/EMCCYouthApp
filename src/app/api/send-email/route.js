@@ -23,7 +23,7 @@ export async function POST(request) {
     const mailOptions = {
       from: process.env.EMAIL_USER, // Sender's email address
       to: process.env.EMAIL_RECEIVER, // List of recipients
-      subject: 'New Form Submission', // Subject of the email
+      subject: 'Connect Youth App Form Submission', // Subject of the email
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
           <h2 style="color: #333;">New Form Submission</h2>
