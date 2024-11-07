@@ -34,8 +34,13 @@ Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots 
 
     return (
         <div className="p-6 bg-white rounded-md shadow-md">
-            <h1 className="text-2xl font-bold mb-2">{post.title}</h1>
-            <p className="text-gray-600 mb-4">By {post.name} on {post.date}</p>
+            {/* Title, author, and date section with border */}
+            <div className="border-b-2 border-gray-300 pb-4 mb-4">
+                <h1 className="text-2xl font-bold mb-2">{post.title}</h1>
+                <p className="text-gray-600 mb-4">By {post.name} on {post.date}</p>
+            </div>
+
+            {/* Content section */}
             <div className="text-lg" dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, "<br />") }} />
         </div>
     );
