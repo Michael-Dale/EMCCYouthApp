@@ -22,7 +22,7 @@ export default function Info() {
         imagePath={img}
       />
        <MusicPlayer
-        playlistUrl="https://www.youtube.com/watch?v=85B_DpmMunk&list=PLhQKtlhr7fgMF-WTGil-6ic8S4g5IM40P&pp=iAQB"
+        playlistUrl="https://www.youtube.com/playlist?list=PLhQKtlhr7fgMF-WTGil-6ic8S4g5IM40P"
       />
       </div>
     </PageTransition>
