@@ -17,7 +17,7 @@ const getRandomPastelColor = () => {
   return `rgb(${r}, ${g}, ${b})`;
 };
 
-// Function to format the date consistently
+// Function to format the date consistently (without year)
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -26,12 +26,11 @@ const formatDate = (dateString) => {
   const dayOfWeek = dayOfWeekNames[date.getDay()];
   const month = monthNames[date.getMonth()];
   const day = date.getDate();
-  const year = date.getFullYear();
   const time = date.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' });
 
   return {
     dayOfWeek,
-    finalDate: `${day} ${month} ${year}`,
+    finalDate: `${day} ${month}`, // Removed the year
     time,
   };
 };
