@@ -86,10 +86,10 @@ export default function EventCard({ picURL, location, date, description }) {
       <CardContent className="text-center">
         <p className="text-xl font-extrabold">{description}</p>
         <p className="text-m font-medium text-muted-foreground">{location}</p>
-        <p className="text-m font-semibold">
-          {daysRemaining < 14
-            ? `${daysRemaining} DAYS TO GO`
-            : `${finalDate.toUpperCase()} | ${dayOfWeek.toUpperCase()} | ${time}`}
+
+        <p className="text-m font-semibold">{`${finalDate.toUpperCase()} | ${dayOfWeek.toUpperCase()} | ${time}`}</p>
+        <p className="text-s font-bold">
+          {daysRemaining < 14 ? `${daysRemaining} DAYS TO GO` : null}
         </p>
       </CardContent>
       <CardFooter className="flex justify-center">
