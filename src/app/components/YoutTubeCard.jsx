@@ -7,7 +7,7 @@ export default function YouTubeEmbed({ subscribers, title, thumbnail, link }) {
     thumbnail = "/pics/Facebook.png";
   }
   return (
-    <div className="max-w-2xl mx-auto my-4 sm:my-8 bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="max-w-2xl mx-auto my-4 sm:my-8 bg-white shadow-lg rounded-2xl border overflow-hidden">
       <div className="p-4 flex justify-center sm:justify-start">
         <svg
           className="w-24 sm:w-32 h-6 sm:h-8"

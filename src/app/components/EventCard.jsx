@@ -1,4 +1,5 @@
 "use client";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -7,7 +8,6 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { useState } from "react";
 
 // Function to generate a random pastel color
 const getRandomPastelColor = () => {
@@ -17,15 +17,54 @@ const getRandomPastelColor = () => {
   return `rgb(${r}, ${g}, ${b})`;
 };
 
-export default function Component({ picURL, location, time, description }) {
+// Function to format the date
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const options = {
+    month: "short",
+    day: "numeric",
+    weekday: "short",
+    hour: "numeric",
+    minute: "numeric",
+  };
+  const formattedDate = date.toLocaleString("en-US", options);
+  const [dayOfWeek, day, time] = formattedDate.split(", ");
+  let daySplit = day.split(" ");
+  const finalDate = `${daySplit[1]} ${daySplit[0]}`;
+  return {
+    dayOfWeek,
+    finalDate,
+    time,
+  };
+};
+
+// Function to calculate days remaining
+const getDaysRemaining = (dateString) => {
+  const oneDay = 24 * 60 * 60 * 1000; // Hours * Minutes * Seconds * Milliseconds
+  const today = new Date();
+  const eventDate = new Date(dateString);
+  const diffDays = Math.round(Math.abs((today - eventDate) / oneDay));
+  return diffDays;
+};
+
+export default function EventCard({ picURL, location, date, description }) {
   const [imageError, setImageError] = useState(false);
   const randomHoverColor = getRandomPastelColor(); // Generate a random pastel hover color
+  const [daysRemaining, setDaysRemaining] = useState(getDaysRemaining(date));
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setDaysRemaining(getDaysRemaining(date));
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [date]);
+
+  const { dayOfWeek, finalDate, time } = formatDate(date);
 
   return (
     <Card className="w-full max-w-sm mx-auto rounded-2xl mb-6">
-      {/* Removed padding from CardHeader */}
       <CardHeader className="p-0">
-        {/* Added rounding to the top of the image container */}
         <div className="relative w-full h-48 rounded-t-2xl overflow-hidden">
           {!imageError ? (
             <Image
@@ -47,23 +86,27 @@ export default function Component({ picURL, location, time, description }) {
       <CardContent className="text-center">
         <p className="text-xl font-extrabold">{description}</p>
         <p className="text-m font-medium text-muted-foreground">{location}</p>
-        <p className="text-m font-semibold">{time}</p>
+        <p className="text-m font-semibold">
+          {daysRemaining < 14
+            ? `${daysRemaining} DAYS TO GO`
+            : `${finalDate.toUpperCase()} | ${dayOfWeek.toUpperCase()} | ${time}`}
+        </p>
       </CardContent>
       <CardFooter className="flex justify-center">
         <Button
           className={`rounded-full text-lg px-8 py-6 font-bold`}
           style={{
-            backgroundColor: 'white', // Default background color
-            color: 'black',            // Default text color
-            transition: 'background-color 0.3s ease, color 0.3s ease',
+            backgroundColor: "white", // Default background color
+            color: "black", // Default text color
+            transition: "background-color 0.3s ease, color 0.3s ease",
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.backgroundColor = randomHoverColor; // Set pastel hover color
-            e.currentTarget.style.color = 'white'; // Change text color on hover
+            e.currentTarget.style.color = "white"; // Change text color on hover
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = 'white'; // Reset to default
-            e.currentTarget.style.color = 'black'; // Reset text color
+            e.currentTarget.style.backgroundColor = "white"; // Reset to default
+            e.currentTarget.style.color = "black"; // Reset text color
           }}
         >
           + Calendar

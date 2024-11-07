@@ -31,14 +31,15 @@ export default function HomePage() {
           <EventCard
             picURL={img}
             description={"HIKE"}
-            time={"11 SEPT | SAT | 8AM"}
+            // time={"11 SEPT | SAT | 8AM"}
             location={"Rietvlei Zoo"}
+            date={new Date("2024-11-10T10:30:00Z")}
           />
           <EventCard
             picURL={img}
             description={"SPORTS DAY"}
-            time={"20 OCT | SAT | 8AM"}
             location={"ELOHIM CHURCH"}
+            date={new Date("2025-11-15T10:30:00Z")}
           />
           <YouTubeLatestVideo />
 
