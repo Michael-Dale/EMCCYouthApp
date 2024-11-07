@@ -17,20 +17,25 @@ const getRandomPastelColor = () => {
   return `rgb(${r}, ${g}, ${b})`;
 };
 
-// Function to format the date consistently (without year)
+// Function to format the date consistently (show year if the event is in the future)
 const formatDate = (dateString) => {
   const date = new Date(dateString);
+  const currentYear = new Date().getFullYear(); // Get current year
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const dayOfWeekNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   const dayOfWeek = dayOfWeekNames[date.getDay()];
   const month = monthNames[date.getMonth()];
   const day = date.getDate();
+  const year = date.getFullYear();
   const time = date.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' });
+
+  // Check if the event year is in the current year or not
+  const finalDate = year === currentYear ? `${day} ${month}` : `${day} ${month} ${year}`;
 
   return {
     dayOfWeek,
-    finalDate: `${day} ${month}`, // Removed the year
+    finalDate,
     time,
   };
 };
