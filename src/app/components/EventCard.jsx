@@ -17,23 +17,21 @@ const getRandomPastelColor = () => {
   return `rgb(${r}, ${g}, ${b})`;
 };
 
-// Function to format the date
+// Function to format the date consistently
 const formatDate = (dateString) => {
   const date = new Date(dateString);
-  const options = {
-    month: "short",
-    day: "numeric",
-    weekday: "short",
-    hour: "numeric",
-    minute: "numeric",
-  };
-  const formattedDate = date.toLocaleString("en-US", options);
-  const [dayOfWeek, day, time] = formattedDate.split(", ");
-  let daySplit = day.split(" ");
-  const finalDate = `${daySplit[1]} ${daySplit[0]}`;
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const dayOfWeekNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  const dayOfWeek = dayOfWeekNames[date.getDay()];
+  const month = monthNames[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+  const time = date.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' });
+
   return {
     dayOfWeek,
-    finalDate,
+    finalDate: `${day} ${month} ${year}`,
     time,
   };
 };

@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import EventCard from "../components/EventCard.jsx";
 import YouTubeLatestVideo from "../components/YouTubeLatestVideo"; // Adjust the path as necessary
@@ -33,13 +35,13 @@ export default function HomePage() {
             description={"HIKE"}
             // time={"11 SEPT | SAT | 8AM"}
             location={"Rietvlei Zoo"}
-            date={new Date("2024-11-10T10:30:00Z")}
+            date={new Date("2024-11-10T10:30:00")}
           />
           <EventCard
             picURL={img}
             description={"SPORTS DAY"}
             location={"ELOHIM CHURCH"}
-            date={new Date("2025-11-15T10:30:00Z")}
+            date={new Date("2025-11-15T10:30:00")}
           />
           <YouTubeLatestVideo />
 
