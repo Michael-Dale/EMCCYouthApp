@@ -1,7 +1,7 @@
 import PageTransition from "../components/PageTransition";
 const sender = require("../components/Emailer");
 import DirectionCard from "../components/DirectionCard";
-import YouTubeEmbed from "../components/YouTubevideo";
+import YouTubeEmbed from "../components/YoutTubeCard";
 export default function Info() {
   // sender();
   return (

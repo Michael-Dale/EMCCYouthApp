@@ -2,7 +2,10 @@ import React from "react";
 import { Play, ThumbsUp, Share2, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export default function YouTubeEmbed() {
+export default function YouTubeEmbed({ subscribers, title, thumbnail, link }) {
+  if (!thumbnail) {
+    thumbnail = "/pics/Facebook.png";
+  }
   return (
     <div className="max-w-2xl mx-auto my-4 sm:my-8 bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="p-4 flex justify-center sm:justify-start">
@@ -62,30 +65,30 @@ export default function YouTubeEmbed() {
       <div className="relative">
         <div className="aspect-w-16 aspect-h-9 bg-gray-200">
           <img
-            src="/placeholder.svg?height=360&width=640"
+            src={thumbnail}
             alt="Video thumbnail"
             className="object-cover w-full h-full"
           />
           <div className="absolute inset-0 flex items-center justify-center">
-            <Button
-              variant="outline"
-              size="icon"
-              className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-white bg-opacity-75 hover:bg-opacity-100 transition-opacity"
-            >
-              <Play className="w-6 h-6 sm:w-8 sm:h-8 text-red-600" />
-              <span className="sr-only">Play video</span>
-            </Button>
+            <a href={link} target="_blank" rel="noopener noreferrer">
+              <Button
+                variant="outline"
+                size="icon"
+                className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-white bg-opacity-75 hover:bg-opacity-100 transition-opacity"
+              >
+                <Play className="w-6 h-6 sm:w-8 sm:h-8 text-red-600" />
+                <span className="sr-only">Play video</span>
+              </Button>
+            </a>
           </div>
         </div>
       </div>
       <div className="p-3 sm:p-4">
-        <h2 className="text-lg sm:text-xl font-bold mb-2">
-          Welcome To Our Chaneel
-        </h2>
+        <h2 className="text-lg sm:text-xl font-bold mb-2">{title}</h2>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
           <div className="flex items-center mb-2 sm:mb-0">
             <img
-              src="/placeholder.svg?height=40&width=40"
+              src="/icons/connect youth logo.svg?height=40&width=40"
               alt="Channel avatar"
               className="w-8 h-8 sm:w-10 sm:h-10 rounded-full mr-3"
             />
@@ -117,6 +120,14 @@ export default function YouTubeEmbed() {
             >
               <ThumbsUp className="w-3 h-3 sm:w-4 sm:h-4" />
               245K
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="flex items-center gap-1 text-xs sm:text-sm px-2 sm:px-3"
+            >
+              <Share2 className="w-3 h-3 sm:w-4 sm:h-4" />
+              Share
             </Button>
           </div>
         </div>

@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import YouTubeEmbed from "../components/YoutTubeCard";
 
 // In-memory cache to store the video and timestamp
 let latestVideoCache = null;
@@ -17,10 +18,12 @@ const YouTubeLatestVideo = () => {
     const currentDate = new Date();
 
     // If there's no last fetched date or it's a different day, fetch is needed
-    if (!lastFetchedDate || 
-        lastFetchedDate.getDate() !== currentDate.getDate() || 
-        lastFetchedDate.getMonth() !== currentDate.getMonth() || 
-        lastFetchedDate.getFullYear() !== currentDate.getFullYear()) {
+    if (
+      !lastFetchedDate ||
+      lastFetchedDate.getDate() !== currentDate.getDate() ||
+      lastFetchedDate.getMonth() !== currentDate.getMonth() ||
+      lastFetchedDate.getFullYear() !== currentDate.getFullYear()
+    ) {
       return true;
     }
     return false;
@@ -66,12 +69,19 @@ const YouTubeLatestVideo = () => {
   }, [API_KEY, CHANNEL_ID]);
 
   if (error) {
-    return <div className="text-red-500">{error}</div>;
+    return <YouTubeEmbed />;
   }
 
   return (
     <div className="flex justify-center p-4">
       {latestVideo ? (
+        <YouTubeEmbed
+          title={latestVideo.snippet.title}
+          link={`https://www.youtube.com/watch?v=${latestVideo.id.videoId}`}
+          thumbnail={latestVideo.snippet.thumbnails.high.url}
+        />
+      ) : null}
+      {/* {latestVideo ? (
         // Wrap the entire component in an anchor tag to make it clickable
         <a
           href={`https://www.youtube.com/watch?v=${latestVideo.id.videoId}`}
@@ -92,7 +102,7 @@ const YouTubeLatestVideo = () => {
         </a>
       ) : (
         <div>Loading...</div>
-      )}
+      )} */}
     </div>
   );
 };
