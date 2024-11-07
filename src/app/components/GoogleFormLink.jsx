@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const GoogleFormLink = ({ formTitle, formDescription, googleFormUrl, imagePath }) => {
   return (
-    <div className="w-full max-w-sm border rounded-md shadow-md bg-white text-center mx-auto">
+    <div className="w-full max-w-sm border rounded-md shadow-md bg-white text-center m-6 mx-auto">
       {/* Outer div to control the full size of the image */}
       <div className="relative w-full mb-4 overflow-hidden rounded-t-md">
         {imagePath ? (
