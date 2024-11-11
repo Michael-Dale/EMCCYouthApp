@@ -5,7 +5,7 @@ export default function Blog() {
   return (
     <PageTransition>
       <div className="p-4">
-        <h1 className="text-2xl font-bold mb-4">Blog</h1>
+        {/* <h1 className="text-2xl font-bold mb-4">Blog</h1> */}
         {/* Your contact page content here */}
         <DevotionalPost
           verse="Philippians 4:13 - I can do all things through Christ who strengthens me."

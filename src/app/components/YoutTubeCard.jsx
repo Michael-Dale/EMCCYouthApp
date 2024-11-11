@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 
 export default function YouTubeEmbed({ subscribers, title, thumbnail, link }) {
   if (!thumbnail) {
-    thumbnail = "/pics/Facebook.png";
+    thumbnail = "/pics/thumbnail.png";
   }
   return (
-    <div className="max-w-2xl mx-auto my-4 sm:my-8 bg-white shadow-lg rounded-2xl border overflow-hidden">
+    <div className="max-w-md mx-auto my-4 sm:my-8 bg-white shadow-lg rounded-2xl border overflow-hidden">
       <div className="p-4 flex justify-center sm:justify-start">
         <svg
           className="w-24 sm:w-32 h-6 sm:h-8"

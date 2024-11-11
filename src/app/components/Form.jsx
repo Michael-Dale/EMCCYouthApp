@@ -4,7 +4,13 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
 export default function StyledForm() {
@@ -27,24 +33,24 @@ export default function StyledForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
+      const response = await fetch("/api/send-email", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ isAnonymous, ...formData }),
       });
-  
+
       if (!response.ok) {
-        throw new Error('Failed to send email');
+        throw new Error("Failed to send email");
       }
-  
+
       const data = await response.json();
       console.log(data.message); // "Email sent successfully"
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
@@ -52,22 +58,30 @@ export default function StyledForm() {
     <div className="form-wrapper border border-gray-300 rounded-2xl p-6 shadow-md max-w-md mx-auto my-6 bg-grey transition-shadow duration-200 hover:shadow-lg">
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="flex justify-center items-center space-x-4 mb-4">
-          <Label htmlFor="anonymous" className="text-gray-800 font-semibold">Submit anonymously</Label>
+          <Label htmlFor="anonymous" className="text-gray-800 font-semibold">
+            Submit anonymously
+          </Label>
           <button
             type="button"
             aria-pressed={isAnonymous}
             onClick={() => setIsAnonymous(!isAnonymous)}
-            className={`relative inline-flex items-center h-6 w-12 rounded-full transition-colors duration-200 focus:outline-none ${isAnonymous ? "bg-blue-500" : "bg-gray-300"}`}
+            className={`relative inline-flex items-center h-6 w-12 rounded-full transition-colors duration-200 focus:outline-none ${
+              isAnonymous ? "bg-blue-500" : "bg-gray-300"
+            }`}
           >
             <span
-              className={`inline-block w-5 h-5 transform rounded-full bg-white transition-transform duration-200 ${isAnonymous ? "translate-x-6" : "translate-x-1"}`}
+              className={`inline-block w-5 h-5 transform rounded-full bg-white transition-transform duration-200 ${
+                isAnonymous ? "translate-x-6" : "translate-x-1"
+              }`}
             />
           </button>
         </div>
 
         <div className="space-y-4">
           <div>
-            <Label htmlFor="firstName" className="text-gray-800">First Name</Label>
+            <Label htmlFor="firstName" className="text-gray-800">
+              First Name
+            </Label>
             <Input
               id="firstName"
               name="firstName"
@@ -78,7 +92,9 @@ export default function StyledForm() {
             />
           </div>
           <div>
-            <Label htmlFor="lastName" className="text-gray-800">Last Name</Label>
+            <Label htmlFor="lastName" className="text-gray-800">
+              Last Name
+            </Label>
             <Input
               id="lastName"
               name="lastName"
@@ -89,7 +105,9 @@ export default function StyledForm() {
             />
           </div>
           <div>
-            <Label htmlFor="contactInfo" className="text-gray-800">Phone number/email</Label>
+            <Label htmlFor="contactInfo" className="text-gray-800">
+              Phone number/email
+            </Label>
             <Input
               id="contactInfo"
               name="contactInfo"
@@ -100,10 +118,14 @@ export default function StyledForm() {
             />
           </div>
           <div>
-            <Label htmlFor="requestType" className="text-gray-800">Select Request Type</Label>
+            <Label htmlFor="requestType" className="text-gray-800">
+              Select Request Type
+            </Label>
             <Select
               name="requestType"
-              onValueChange={(value) => handleInputChange({ target: { name: "requestType", value } })}
+              onValueChange={(value) =>
+                handleInputChange({ target: { name: "requestType", value } })
+              }
             >
               <SelectTrigger>
                 <SelectValue placeholder="Select option" />
@@ -118,7 +140,9 @@ export default function StyledForm() {
             </Select>
           </div>
           <div>
-            <Label htmlFor="message" className="text-gray-800">Message</Label>
+            <Label htmlFor="message" className="text-gray-800">
+              Message
+            </Label>
             <Textarea
               id="message"
               name="message"
