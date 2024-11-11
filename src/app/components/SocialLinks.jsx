@@ -1,11 +1,12 @@
 import React from "react";
 import { Instagram, Youtube, Phone } from "lucide-react";
+require('dotenv').config();
 
 export default function SocialLinks() {
   return (
     <div className="flex flex-col space-y-3 w-full max-w-md mx-auto mt-4 px-4 sm:px-0">
       <a
-        href="https://www.instagram.com/yourusername"
+        href="https://www.instagram.com/connect_emcc"
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center p-3 sm:p-4 space-x-3 transition-colors duration-300 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"
@@ -24,7 +25,7 @@ export default function SocialLinks() {
         </div>
       </a>
       <a
-        href="https://www.youtube.com/channel/your-channel-id"
+        href={`https://www.youtube.com/channel/${process.env.NEXT_PUBLIC_YT_CHANNEL_ID}`}
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center p-3 sm:p-4 space-x-3 transition-colors duration-300 rounded-lg bg-gradient-to-r from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 text-white"
@@ -43,7 +44,7 @@ export default function SocialLinks() {
         </div>
       </a>
       <a
-        href="https://wa.me/1234567890"
+        href="https://chat.whatsapp.com/GsJ9bdUI1L94mwn18cV0wG"
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center p-3 sm:p-4 space-x-3 transition-colors duration-300 rounded-lg bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 text-white"
