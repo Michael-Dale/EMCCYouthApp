@@ -1,5 +1,5 @@
-
-
+"use client";
+import { useState, useEffect } from "react";
 import React from "react";
 import EventCard from "../components/EventCard.jsx";
 import YouTubeLatestVideo from "../components/YouTubeLatestVideo"; // Adjust the path as necessary
@@ -20,6 +20,22 @@ const images = [
   "/pics/5.jpg",
 ];
 export default function HomePage() {
+  const [devotion, setDevotion] = useState(null);
+  useEffect(() => {
+    async function fetchLatest() {
+      try {
+        const response = await fetch("/api/devotions?latest=true");
+        const data = await response.json();
+        setDevotion(data);
+      } catch (error) {
+        console.error("Error fetching latest devotion:", error);
+        setDevotion(false);
+      }
+    }
+
+    fetchLatest();
+  }, []);
+
   return (
     <>
       <PageTransition>
@@ -49,20 +65,27 @@ export default function HomePage() {
             <h2 className="text-gray-800 text-2xl font-semibold text-center">
               Latest Devotion
             </h2>
-            <DevotionalPost
-              verse={`Isaiah 41:10 
+
+            {devotion ? (
+              <DevotionalPost
+                verse={devotion.verse}
+                message={devotion.message}
+                date={devotion.devotion_datetime}
+              />
+            ) : (
+              <DevotionalPost
+                verse={`Isaiah 41:10 
 “Fear not, for I am with you;
 Be not dismayed, for I am your God. 
 I will strengthen you,
 I will uphold you with My righteous right hand”`}
-              message="Remember, with faith and determination, you can overcome any challenge.
+                message="Remember, with faith and determination, you can overcome any challenge.
     Remember, with faith and determination, you can overcome any challenge.
     Remember, with faith and determination, you can overcome any challenge.
     Remember, with faith and determination, y."
-              date="2024/10/11"
-              username="ConnectYouth"
-              profilePic="/icons/connect youth logo.svg"
-            />
+                date="2024/10/11"
+              />
+            )}
             <div className="text-center mt-4">
               <Link
                 href="/blog/devotions"

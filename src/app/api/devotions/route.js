@@ -4,15 +4,23 @@ import DevotionModel from "@/db/models/devotion";
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
+    ///api/devotions?id=2  then id=2
     const id = searchParams.get("id");
+    //If call '/api/devotions?latest=true' then latest=true
+    const latest = searchParams.get("latest");
+
+    if (latest === "true") {
+      const latestDevotion = await DevotionModel.getLatest();
+      return NextResponse.json(latestDevotion);
+    }
 
     if (id) {
       const devotion = await DevotionModel.getById(id);
       return NextResponse.json(devotion);
-    } else {
-      const devotions = await DevotionModel.getAll();
-      return NextResponse.json(devotions);
     }
+
+    const devotions = await DevotionModel.getAll();
+    return NextResponse.json(devotions);
   } catch (error) {
     console.error("Error fetching devotions:", error);
     return NextResponse.json(

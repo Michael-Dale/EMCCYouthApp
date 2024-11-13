@@ -11,6 +11,16 @@ const DevotionModel = {
       throw error;
     }
   },
+  async getLatest() {
+    try {
+      const result = await pool.query(
+        "SELECT * FROM devotion ORDER BY devotion_datetime DESC LIMIT 1"
+      );
+      return result.rows[0];
+    } catch (error) {
+      throw error;
+    }
+  },
 
   async getById(id) {
     try {

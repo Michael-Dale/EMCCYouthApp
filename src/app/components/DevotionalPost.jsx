@@ -48,7 +48,7 @@ const formatDate = (date) => {
   return `${hours}:${minutes}${ampm} · ${month} ${day} ${year} ·  `;
 };
 
-const DevotionalPost = ({ verse, message, date, username, profilePic }) => {
+const DevotionalPost = ({ verse, message, date }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = useCallback(() => {
@@ -98,8 +98,8 @@ const DevotionalPost = ({ verse, message, date, username, profilePic }) => {
         /> */}
         <Image
           data-testid="close-icon"
-          src={profilePic}
-          alt={`${username}'s profile`}
+          src="/icons/connect youth logo.svg"
+          alt={`ConnectYouth's profile`}
           height="80"
           width="80"
           className="rounded-full mr-2"
@@ -108,7 +108,7 @@ const DevotionalPost = ({ verse, message, date, username, profilePic }) => {
           <div className="flex items-center">
             {" "}
             <span className="text-gray-800 font-semibold text-xl mr-1">
-              {username}
+              ConnectYouth
             </span>
             <Bluetick className="w-3 h-3 " />
           </div>
