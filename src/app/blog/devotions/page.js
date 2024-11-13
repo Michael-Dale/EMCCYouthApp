@@ -1,7 +1,25 @@
+"use client";
+import { useState, useEffect } from "react";
 import PageTransition from "../../components/PageTransition";
 import DevotionalPost from "../../components/DevotionalPost";
 
 export default function Blog() {
+  const [devotion, setDevotion] = useState(null);
+  useEffect(() => {
+    async function fetchLatest() {
+      try {
+        const response = await fetch("/api/devotions");
+        const data = await response.json();
+        setDevotion(data);
+      } catch (error) {
+        console.error("Error fetching latest devotion:", error);
+        setDevotion(false);
+      }
+    }
+
+    fetchLatest();
+  }, []);
+
   return (
     <PageTransition>
       <div className="p-4">
