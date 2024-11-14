@@ -1,4 +1,3 @@
-
 "use client";
 import { useState, useEffect } from "react";
 import React from "react";
@@ -10,6 +9,7 @@ import PdfThumbnail from "../components/PdfThumbnail";
 import BlogPostSnippet from "../components/BlogPostSnippet.jsx";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import EventCardSkeleton from "../components/skeletons/EventCardSkeleton.jsx";
 
 import PageTransition from "../components/PageTransition.js";
 const img = "/pics/Facebook.png";
@@ -73,6 +73,7 @@ export default function HomePage() {
             Welcome to My Website
           </h1>
           <ImageCarousel images={images} />
+          <EventCardSkeleton />
 
           <EventCard
             picURL={img}
