@@ -9,6 +9,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function Blog() {
   const [latestSermon, setLatestSermon] = useState(null);
+  const [devotion, setDevotion] = useState(null);
 
   useEffect(() => {
     async function fetchLatestDevotion() {
@@ -43,11 +44,13 @@ export default function Blog() {
         <h2 className="text-gray-800 text-2xl font-semibold text-center">
           Latest Devotion
         </h2>
-        <DevotionalPost
-          verse={`Isaiah 41:10 “Fear not, for I am with you...`}
-          message="Remember, with faith and determination, you can overcome any challenge."
-          date="2024/10/11"
-        />
+        {devotion ? (
+          <DevotionalPost
+            verse={devotion.verse}
+            message={devotion.message}
+            date={devotion.devotion_datetime}
+          />
+        ) : null}
         <div className="text-center mt-4">
           <Link href="/blog/devotions" className="inline-flex items-center ...">
             <span>View all devotions</span>
@@ -102,7 +105,3 @@ export default function Blog() {
     </PageTransition>
   );
 }
-
-
-
-
