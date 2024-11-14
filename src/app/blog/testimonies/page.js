@@ -1,6 +1,5 @@
 "use client"; 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import BlogPostSnippet from '../../components/BlogPostSnippet';
 
 export default function Testimonies() {
