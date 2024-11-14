@@ -1,3 +1,4 @@
+
 "use client";
 import { useState, useEffect } from "react";
 import React from "react";
@@ -23,6 +24,7 @@ const images = [
 export default function HomePage() {
   const [devotion, setDevotion] = useState(null);
   const [latestSermon, setLatestSermon] = useState(null);
+  const [latestTestimony, setLatestTestimony] = useState(null);
 
   useEffect(() => {
     async function fetchLatestDevotion() {
@@ -47,8 +49,20 @@ export default function HomePage() {
       }
     }
 
+    async function fetchLatestTestimony() {
+      try {
+        const response = await fetch("/api/testimonies?latest=true");
+        const testimonyData = await response.json();
+        setLatestTestimony(testimonyData);
+      } catch (error) {
+        console.error("Error fetching latest testimony:", error);
+        setLatestTestimony(false);
+      }
+    }
+
     fetchLatestDevotion();
     fetchLatestSermon();
+    fetchLatestTestimony();
   }, []);
 
   return (
@@ -74,6 +88,7 @@ export default function HomePage() {
           />
           <YouTubeLatestVideo />
 
+          {/* Latest Devotion Section */}
           <div className="border border-gray-300 rounded-2xl p-4 shadow-md max-w-md mx-auto my-4 bg-white transition-shadow duration-200 hover:shadow-lg">
             <h2 className="text-gray-800 text-2xl font-semibold text-center">
               Latest Devotion
@@ -107,6 +122,7 @@ I will uphold you with My righteous right hand”`}
             </div>
           </div>
 
+          {/* Latest Sermon Section */}
           <div className="border border-gray-300 rounded-2xl p-4 shadow-md max-w-md mx-auto my-4 bg-white transition-shadow duration-200 hover:shadow-lg">
             <h2 className="text-gray-800 text-2xl font-semibold text-center">
               Latest Sermon
@@ -135,18 +151,29 @@ I will uphold you with My righteous right hand”`}
             </div>
           </div>
 
+          {/* Latest Testimony Section */}
           <div className="border border-gray-300 rounded-2xl p-4 shadow-md max-w-md mx-auto my-4 bg-white transition-shadow duration-200 hover:shadow-lg">
             <h2 className="text-gray-800 text-2xl font-semibold text-center">
               Latest Testimony
             </h2>
 
-            <BlogPostSnippet
-              id={1}
-              name={"John Doe"}
-              date={"2024-10-16"}
-              title={"My First Blog Post"}
-              content={"This is the full content of the first post."}
-            />
+            {latestTestimony ? (
+              <BlogPostSnippet
+                id={latestTestimony.id}
+                name={latestTestimony.author}
+                date={latestTestimony.post_datetime}
+                title={latestTestimony.title}
+                content={latestTestimony.message}
+              />
+            ) : (
+              <BlogPostSnippet
+                id={1}
+                name={"John Doe"}
+                date={"2024-10-16"}
+                title={"Testimony not found"}
+                content={"There is no latest testimony available."}
+              />
+            )}
             <div className="text-center mt-4">
               <Link
                 href="/blog/testimonies"
@@ -162,12 +189,3 @@ I will uphold you with My righteous right hand”`}
     </>
   );
 }
-
-
-
-  {/* <a href="https://wa.me/27638074854?text=Hello%2C%20how%20are%20you%3F" target="_blank">Send WhatsApp Message to Matthew</a>
-       <a href="" target="_blank">Youth Group</a>
-       <a href="https://www.instagram.com/connect_emcc?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">Open instagram profile</a> */}
-
-      {/* Commented out just because it was in the way  */}
-      {/* <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSemUOkSVIMr6SWJCKqM8BNNpRdPLsq3SGGmgocVwuzKdwFP4A/viewform?embedded=true" width="640" height="1094" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe> */}

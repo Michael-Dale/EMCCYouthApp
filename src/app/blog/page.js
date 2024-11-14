@@ -10,6 +10,7 @@ import { ArrowRight } from "lucide-react";
 export default function Blog() {
   const [latestSermon, setLatestSermon] = useState(null);
   const [devotion, setDevotion] = useState(null);
+  const [latestTestimony, setLatestTestimony] = useState(null);
 
   useEffect(() => {
     async function fetchLatestDevotion() {
@@ -34,8 +35,20 @@ export default function Blog() {
       }
     }
 
+    async function fetchLatestTestimony() {
+      try {
+        const response = await fetch("/api/testimonies?latest=true");
+        const testimonyData = await response.json();
+        setLatestTestimony(testimonyData);
+      } catch (error) {
+        console.error("Error fetching latest testimony:", error);
+        setLatestTestimony(false);
+      }
+    }
+
     fetchLatestDevotion();
     fetchLatestSermon();
+    fetchLatestTestimony();
   }, []);
 
   return (
@@ -84,14 +97,17 @@ export default function Blog() {
         <h2 className="text-gray-800 text-2xl font-semibold text-center">
           Latest Testimony
         </h2>
-
-        <BlogPostSnippet
-          id={1}
-          name={"John Doe"}
-          date={"2024-10-16"}
-          title={"My First Blog Post"}
-          content={"This is the full content of the first post."}
-        />
+        {latestTestimony ? (
+          <BlogPostSnippet
+          id={latestTestimony.id}
+          name={latestTestimony.author}
+          date={latestTestimony.post_datetime}
+          title={latestTestimony.title}
+          content={latestTestimony.message}
+          />
+        ) : (
+          <div>Loading latest testimony...</div>
+        )}
         <div className="text-center mt-4">
           <Link
             href="/blog/testimonies"

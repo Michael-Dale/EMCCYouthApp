@@ -1,16 +1,42 @@
+"use client"; 
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import BlogPostSnippet from '../../components/BlogPostSnippet';
 
-const posts = [
-    { id: 1, name: 'John Doe', date: '2024-10-16', title: 'My First Blog Post', content: 'This is the full content of the first post.' },
-    { id: 2, name: 'Jane Doe', date: '2024-10-15', title: 'Another Blog Post', content: 'This is the full content of another post.' }
-];
+export default function Testimonies() {
+  const [testimonies, setTestimonies] = useState([]);
 
-export default function Home() {
-    return (
-        <div className="container mx-auto p-6">
-            {posts.map(post => (
-                <BlogPostSnippet key={post.id} {...post} />
-            ))}
-        </div>
-    );
+  useEffect(() => {
+    async function fetchTestimonies() {
+      try {
+        const response = await fetch("/api/testimonies");
+        const data = await response.json();
+        setTestimonies(data);
+      } catch (error) {
+        console.error("Error fetching testimonies:", error);
+      }
+    }
+
+    fetchTestimonies();
+  }, []);
+
+  return (
+    <div className="container mx-auto p-6">
+      {testimonies.length > 0 ? (
+        testimonies.map(post => (
+          <div key={post.id} className="mb-4">
+            <BlogPostSnippet
+              id={post.id}
+              name={post.author}
+              date={post.post_datetime}
+              title={post.title}
+              content={post.message}
+            />
+          </div>
+        ))
+      ) : (
+        <div>Loading testimonies...</div>
+      )}
+    </div>
+  );
 }
