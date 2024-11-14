@@ -10,7 +10,7 @@ const PdfThumbnail = ({ pdfUrl, title, imgSrc }) => {
   return (
     <div
       onClick={handlePdfClick}
-      className="cursor-pointer  rounded-lg p-4 hover:shadow-lg transition-shadow duration-200 m-4" // Added margin
+      className="cursor-pointer border border-gray-300 rounded-lg p-4 hover:shadow-lg transition-shadow duration-200 m-4" // Added border styles
     >
       {/* Display a PDF thumbnail */}
       <Image
