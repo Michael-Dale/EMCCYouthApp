@@ -1,4 +1,4 @@
-import BlogPostSnippet from '../../components/BlogPostSnippet ';
+import BlogPostSnippet from '../../components/BlogPostSnippet';
 
 const posts = [
     { id: 1, name: 'John Doe', date: '2024-10-16', title: 'My First Blog Post', content: 'This is the full content of the first post.' },

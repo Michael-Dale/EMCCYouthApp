@@ -1,7 +1,7 @@
 import PageTransition from "../components/PageTransition";
 import DevotionalPost from "../components/DevotionalPost";
 import PdfThumbnail from "../components/PdfThumbnail";
-import BlogPostSnippet from "../components/BlogPostSnippet ";
+import BlogPostSnippet from "../components/BlogPostSnippet";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import DevotionSkeleton from "../components/skeletons/DevotionSkeleton";
