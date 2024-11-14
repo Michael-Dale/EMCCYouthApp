@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import PageTransition from "../../components/PageTransition";
 import DevotionalPost from "../../components/DevotionalPost";
+import DevotionSkeleton from "@/app/components/skeletons/DevotionSkeleton";
 
 export default function Blog() {
   const [devotions, setDevotions] = useState([]);
@@ -31,8 +32,13 @@ export default function Blog() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      // <div className="flex justify-center items-center min-h-screen">
+      //   <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-sky-400"></div>
+      // </div>
+      <div className="max-w-4xl mx-auto p-4 space-y-8">
+        {[1, 2, 3].map((index) => (
+          <DevotionSkeleton key={index} />
+        ))}
       </div>
     );
   }
