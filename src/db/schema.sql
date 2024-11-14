@@ -33,7 +33,7 @@ CREATE TABLE sermon (
     sermon_image_url VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE blog_post (
+CREATE TABLE testimony (
     id SERIAL PRIMARY KEY,
     author VARCHAR(50) NOT NULL,
     post_datetime TIMESTAMP NOT NULL,
