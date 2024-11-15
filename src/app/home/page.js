@@ -25,8 +25,19 @@ export default function HomePage() {
   const [devotion, setDevotion] = useState(null);
   const [latestSermon, setLatestSermon] = useState(null);
   const [latestTestimony, setLatestTestimony] = useState(null);
+  const [events, setEvents] = useState(null);
 
   useEffect(() => {
+    async function fetchUpcomingEvents() {
+      try {
+        const response = await fetch("/api/events?upcoming=true");
+        const data = await response.json();
+        setEvents(data);
+      } catch (error) {
+        console.error("Error fetching latest devotion:", error);
+        setEvents(false);
+      }
+    }
     async function fetchLatestDevotion() {
       try {
         const response = await fetch("/api/devotions?latest=true");
@@ -60,6 +71,7 @@ export default function HomePage() {
       }
     }
 
+    fetchUpcomingEvents();
     fetchLatestDevotion();
     fetchLatestSermon();
     fetchLatestTestimony();
@@ -74,19 +86,28 @@ export default function HomePage() {
           </h1>
           <ImageCarousel images={images} />
           <EventCardSkeleton />
-
-          <EventCard
+          {events &&
+            events.map((event) => (
+              <EventCard
+                key={event.id}
+                picURL={event.image_url}
+                description={event.title}
+                location={event.location}
+                date={event.event_datetime}
+              />
+            ))}
+          {/* <EventCard
             picURL={img}
             description={"HIKE"}
             location={"Rietvlei Zoo"}
             date={new Date("2024-11-10T10:30:00")}
-          />
-          <EventCard
+          /> */}
+          {/* <EventCard
             picURL={img}
             description={"SPORTS DAY"}
             location={"ELOHIM CHURCH"}
             date={new Date("2025-11-15T10:30:00")}
-          />
+          /> */}
           <YouTubeLatestVideo />
 
           {/* Latest Devotion Section */}

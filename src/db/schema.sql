@@ -4,7 +4,7 @@ CREATE TABLE image_carousel (
     order_index INT NOT NULL
 );
 
-CREATE TABLE event_card (
+CREATE TABLE event (
     id SERIAL PRIMARY KEY,
     image_url VARCHAR(255) NOT NULL,
     title VARCHAR(100) NOT NULL,

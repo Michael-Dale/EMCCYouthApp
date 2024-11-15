@@ -1,0 +1,39 @@
+-- Single event insert
+INSERT INTO event (image_url, title, location, event_datetime)
+VALUES (
+    'https://example.com/images/christmas-service.jpg',
+    'Christmas Service 2024',
+    'Main Auditorium',
+    '2024-12-25 10:00:00'
+);
+
+-- Multiple events insert
+INSERT INTO event (image_url, title, location, event_datetime)
+VALUES 
+    (
+        '/pics/Facebook.png',
+        'Youth Summer Retreat',
+        'Camp Mountain View',
+        '2024-07-15 09:00:00'
+    ),
+    (
+        '/pics/Facebook.png',
+        'Evening Worship Night',
+        'Main Sanctuary',
+        '2024-06-01 19:00:00'
+    ),
+    (
+        '/pics/Facebook.png',
+        'Weekly Bible Study',
+        'Fellowship Hall',
+        '2024-05-22 18:30:00'
+    ),
+    (
+        '/pics/Facebook.png',
+        'Community Outreach Day',
+        'City Park',
+        '2024-06-15 10:00:00'
+    );
+
+-- Verify the inserts
+SELECT * FROM event ORDER BY event_datetime;
