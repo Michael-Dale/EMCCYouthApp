@@ -107,14 +107,39 @@ const account = () => (
   </svg>
 );
 
+const admin = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="ionicon"
+    viewBox="0 0 512 512"
+    width="30px"
+    height="30px"
+  >
+    <path
+      d="M352 48H160a48 48 0 00-48 48v320a48 48 0 0048 48h192a48 48 0 0048-48V96a48 48 0 00-48-48z"
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="32"
+    />
+    <path
+      d="M192 48v320h128V48"
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="32"
+    />
+  </svg>
+);
+
 function NavbarIcon({ icon: Icon, label, link, activeColor }) {
   const pathname = usePathname();
   return (
     <Link
       href={link}
-      className={`flex flex-col items-center ${
-        pathname === link ? `text-[${activeColor}]` : "text-white"
-      }`}
+      className={`flex flex-col items-center ${pathname === link ? `text-[${activeColor}]` : "text-white"}`}
       style={pathname === link ? { color: activeColor } : {}}
     >
       <Icon className="w-6 h-6 mb-1" />
@@ -160,6 +185,13 @@ export default function Component() {
           link="/account"
           activeColor="#40bcf4"
         />
+
+<NavbarIcon
+  icon={admin}
+  label="Admin"
+  link="/admin"
+  activeColor="#8e44ad"
+/>
       </div>
     </nav>
   );
