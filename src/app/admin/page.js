@@ -35,7 +35,7 @@ const AdminPage = () => {
           href="/admin/registration"
           className="bg-red-500 hover:bg-red-600 text-white py-4 px-6 rounded-md shadow-md text-center"
         >
-          Registration Link
+          Google Form Link
         </Link>
         <Link
           href="/admin/gallery"
