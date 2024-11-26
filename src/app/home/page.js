@@ -19,6 +19,7 @@ const images = [
   "/pics/3.jpg",
   "/pics/4.jpg",
   "/pics/5.jpg",
+  "/pics/5.jpg",
 ];
 
 export default function HomePage() {
@@ -80,11 +81,12 @@ export default function HomePage() {
   return (
     <>
       <PageTransition>
-        <div className="p-4">
-          <h1 className="text-center text-3xl font-bold mt-4">
+      <h1 className="text-center text-3xl font-bold mt-4 p-4">
             Welcome to My Website
           </h1>
           <ImageCarousel images={images} />
+        <div className="p-4">
+          
           <EventCardSkeleton />
           {events &&
             events.map((event) => (

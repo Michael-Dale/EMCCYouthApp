@@ -98,7 +98,7 @@ const ImageCarousel = ({
   const isCurrentImageLoaded = loadedImages.has(images[currentIndex]);
 
   return (
-    <div className="relative w-full max-w-2xl mx-auto overflow-hidden rounded-lg shadow-lg bg-gray-900">
+    <div className="relative w-full max-w-2xl mx-auto overflow-hidden rounded-lg shadow-lg bg-gray-900 p-0">
       {/* Background blur container */}
       <div 
         className="absolute inset-0 bg-cover bg-center transition-all duration-500"
@@ -108,7 +108,7 @@ const ImageCarousel = ({
           transform: 'scale(1.1)', // Prevent blur edges from showing
         }}
       />
-
+      
       {/* Main container */}
       <div 
         className="relative w-full"
@@ -123,21 +123,30 @@ const ImageCarousel = ({
           </div>
         )}
 
-        {/* Main image */}
+        {/* Image container with transition */}
         <div
-          className="w-full h-full"
+          className="relative w-full h-full"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          <img
-            src={images[currentIndex]}
-            alt={`Slide ${currentIndex + 1}`}
-            className={`w-full h-full object-contain transition-opacity duration-300 ${
-              isCurrentImageLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
-            onLoad={handleImageLoad}
-          />
+          {/* Set image translation based on currentIndex */}
+          <div className="absolute flex w-full h-full transition-transform duration-1000 ease-in-out"
+            style={{
+              transform: `translateX(-${currentIndex * 100}%)`, // Slides images horizontally
+            }}
+          >
+            {images.map((src, index) => (
+              <div className="w-full flex-shrink-0" key={index}>
+                <img
+                  src={src}
+                  alt={`Slide ${index + 1}`}
+                  className="w-full h-full object-contain transition-all duration-1000 ease-in-out"
+                  onLoad={handleImageLoad}
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Navigation arrows */}
@@ -167,7 +176,7 @@ const ImageCarousel = ({
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white ${
+                className={`w-2 h-2 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white ${ 
                   currentIndex === index 
                     ? 'bg-white w-4' 
                     : 'bg-white/50 hover:bg-white/75'
