@@ -84,7 +84,7 @@ export default function EventCard({ picURL, location, date, description }) {
     const icalContent = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
-      'PRODID:-//Your App Name//Event Calendar//EN',
+      'PRODID:-//Connect Youth//Event Calendar//EN',
       'BEGIN:VEVENT',
       `SUMMARY:${description}`,
       `LOCATION:${location}`,
