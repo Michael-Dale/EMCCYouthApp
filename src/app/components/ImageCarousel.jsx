@@ -201,3 +201,130 @@ const ImageCarousel = ({
 };
 
 export default ImageCarousel;
+
+// import React, { useCallback, useEffect, useRef, useState } from 'react'
+// import useEmblaCarousel from 'embla-carousel-react'
+// import { NextButton, PrevButton, usePrevNextButtons } from './EmblaCarouselArrowButtons'
+// import { DotButton, useDotButton } from '../components/EmblaCarouselDotButton'
+
+// const TWEEN_FACTOR_BASE = 0.2;
+
+// const ImageCarousel = ({ images, options }) => {
+//   const [emblaRef, emblaApi] = useEmblaCarousel(options);
+//   const tweenFactor = useRef(0);
+//   const tweenNodes = useRef([]);
+
+//   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
+//   const {
+//     prevBtnDisabled,
+//     nextBtnDisabled,
+//     onPrevButtonClick,
+//     onNextButtonClick
+//   } = usePrevNextButtons(emblaApi);
+
+//   const setTweenNodes = useCallback((emblaApi) => {
+//     tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
+//       return slideNode.querySelector('.embla__parallax__layer');
+//     });
+//   }, []);
+
+//   const setTweenFactor = useCallback((emblaApi) => {
+//     tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
+//   }, []);
+
+//   const tweenParallax = useCallback((emblaApi, eventName) => {
+//     const engine = emblaApi.internalEngine();
+//     const scrollProgress = emblaApi.scrollProgress();
+//     const slidesInView = emblaApi.slidesInView();
+//     const isScrollEvent = eventName === 'scroll';
+
+//     emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
+//       let diffToTarget = scrollSnap - scrollProgress;
+//       const slidesInSnap = engine.slideRegistry[snapIndex];
+
+//       slidesInSnap.forEach((slideIndex) => {
+//         if (isScrollEvent && !slidesInView.includes(slideIndex)) return;
+
+//         const translate = diffToTarget * (-1 * tweenFactor.current) * 100;
+//         const tweenNode = tweenNodes.current[slideIndex];
+//         tweenNode.style.transform = `translateX(${translate}%)`;
+//       });
+//     });
+//   }, []);
+
+//   useEffect(() => {
+//     if (!emblaApi) return;
+
+//     setTweenNodes(emblaApi);
+//     setTweenFactor(emblaApi);
+//     tweenParallax(emblaApi);
+
+//     emblaApi
+//       .on('reInit', setTweenNodes)
+//       .on('reInit', setTweenFactor)
+//       .on('reInit', tweenParallax)
+//       .on('scroll', tweenParallax)
+//       .on('slideFocus', tweenParallax);
+//   }, [emblaApi, tweenParallax]);
+
+//   return (
+//     <div className="embla" style={{ maxWidth: '100%', overflow: 'hidden' }}>
+//       <div className="embla__viewport" ref={emblaRef}>
+//         <div className="embla__container" style={{ display: 'flex', justifyContent: 'center' }}>
+//           {images.map((image, index) => (
+//             <div
+//               className="embla__slide"
+//               key={index}
+//               style={{
+//                 position: 'relative',
+//                 display: 'flex',        // Align slides in a row
+//                 justifyContent: 'center', // Center each image horizontally
+//                 width: '100%',           // Make each slide take up full space
+//                 flexShrink: 0,           // Prevent shrinking of slides
+//               }}
+//             >
+//               <div className="embla__parallax">
+//                 <div className="embla__parallax__layer">
+//                   <img
+//                     className="embla__slide__img embla__parallax__img"
+//                     src={image}
+//                     alt={`Slide ${index}`}
+//                     style={{
+//                       width: '100%',   // Make images take full width of the slide
+//                       height: '300px', // Fixed height for all images
+//                       objectFit: 'cover', // Ensure the image fills the container without stretching
+//                       transition: 'transform 0.5s ease-out', // Smooth transition for parallax effect
+//                     }}
+//                   />
+//                 </div>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+
+//       <div className="embla__controls">
+//         <div className="embla__buttons">
+//           <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+//           <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+//         </div>
+
+//         <div className="embla__dots">
+//           {scrollSnaps.map((_, index) => (
+//             <DotButton
+//               key={index}
+//               onClick={() => onDotButtonClick(index)}
+//               className={'embla__dot'.concat(
+//                 index === selectedIndex ? ' embla__dot--selected' : ''
+//               )}
+//             />
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ImageCarousel;
+
+

@@ -22,6 +22,13 @@ const images = [
   "/pics/5.jpg",
 ];
 
+const options = {
+  loop: true,
+  speed: 10,
+  dragFree: true,
+  // Add any other options you need here
+};
+
 export default function HomePage() {
   const [devotion, setDevotion] = useState(null);
   const [latestSermon, setLatestSermon] = useState(null);
@@ -84,7 +91,7 @@ export default function HomePage() {
       <h1 className="text-center text-3xl font-bold mt-4 p-4">
             Welcome to My Website
           </h1>
-          <ImageCarousel images={images} />
+          <ImageCarousel images={images} options={options} />
         <div className="p-4">
           
           <EventCardSkeleton />
