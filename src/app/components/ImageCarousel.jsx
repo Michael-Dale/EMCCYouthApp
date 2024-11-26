@@ -14,23 +14,27 @@ const ImageCarousel = ({
   const [loadedImages, setLoadedImages] = useState(new Set());
   const [imageHeight, setImageHeight] = useState('auto');
   const [isPaused, setIsPaused] = useState(false);
+  const [backgroundOpacity, setBackgroundOpacity] = useState(0);
+  const [imagesLoaded, setImagesLoaded] = useState(false); // Track if all images are loaded
 
   // Handle image navigation
   const goToNext = useCallback(() => {
+    setBackgroundOpacity(0); // Reset background opacity for the fade-in effect
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
   }, [images.length]);
 
   const goToPrevious = useCallback(() => {
+    setBackgroundOpacity(0); // Reset background opacity for the fade-in effect
     setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   }, [images.length]);
 
   // Auto-play functionality
   useEffect(() => {
-    if (!isPaused) {
+    if (!isPaused && imagesLoaded) {
       const interval = setInterval(goToNext, autoPlayInterval);
       return () => clearInterval(interval);
     }
-  }, [goToNext, autoPlayInterval, isPaused]);
+  }, [goToNext, autoPlayInterval, isPaused, imagesLoaded]);
 
   // Touch handlers
   const handleTouchStart = (e) => {
@@ -65,28 +69,25 @@ const ImageCarousel = ({
 
   // Preload images
   useEffect(() => {
-    const preloadImage = (src) => {
-      const img = new Image();
-      img.src = src;
-      img.onload = () => {
-        setLoadedImages(prev => new Set([...prev, src]));
-        if (loadedImages.size === 0) {
-          const viewportHeight = window.innerHeight;
-          const maxHeight = Math.min(viewportHeight * 0.8, img.naturalHeight);
-          setImageHeight(`${maxHeight}px`);
-        }
-      };
+    const preloadImages = () => {
+      let loadedCount = 0;
+      images.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => {
+          loadedCount += 1;
+          setLoadedImages((prev) => new Set([...prev, src]));
+
+          // Once all images are loaded, update the state
+          if (loadedCount === images.length) {
+            setImagesLoaded(true);
+          }
+        };
+      });
     };
 
-    if (!loadedImages.has(images[currentIndex])) {
-      preloadImage(images[currentIndex]);
-    }
-
-    const nextIndex = (currentIndex + 1) % images.length;
-    if (!loadedImages.has(images[nextIndex])) {
-      preloadImage(images[nextIndex]);
-    }
-  }, [currentIndex, images, loadedImages]);
+    preloadImages();
+  }, [images]);
 
   const handleImageLoad = (e) => {
     const img = e.target;
@@ -97,15 +98,23 @@ const ImageCarousel = ({
 
   const isCurrentImageLoaded = loadedImages.has(images[currentIndex]);
 
+  useEffect(() => {
+    if (backgroundOpacity === 0) {
+      const fadeTimer = setTimeout(() => setBackgroundOpacity(1), 100); // Delay fade-in for smoothness
+      return () => clearTimeout(fadeTimer);
+    }
+  }, [currentIndex, backgroundOpacity]);
+
   return (
     <div className="relative w-full max-w-2xl mx-auto overflow-hidden rounded-lg shadow-lg bg-gray-900 p-0">
-      {/* Background blur container */}
+      {/* Background blur container with fade-in transition */}
       <div 
-        className="absolute inset-0 bg-cover bg-center transition-all duration-500"
+        className="absolute inset-0 bg-cover bg-center transition-all duration-1500 ease-in-out"
         style={{ 
           backgroundImage: `url(${images[currentIndex]})`,
           filter: 'blur(20px) brightness(0.5)',
           transform: 'scale(1.1)', // Prevent blur edges from showing
+          opacity: backgroundOpacity,
         }}
       />
       
@@ -116,12 +125,10 @@ const ImageCarousel = ({
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
-        {/* Loading spinner */}
-        {!isCurrentImageLoaded && (
-          <div className="absolute inset-0 flex items-center justify-center bg-transparent">
-            <div className="w-8 h-8 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
-          </div>
-        )}
+        {/* Loading spinner visible while images are loading */}
+        <div className={`absolute inset-0 flex items-center justify-center bg-transparent ${imagesLoaded ? 'hidden' : ''}`}>
+          <div className="w-8 h-8 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
+        </div>
 
         {/* Image container with transition */}
         <div
@@ -131,22 +138,24 @@ const ImageCarousel = ({
           onTouchEnd={handleTouchEnd}
         >
           {/* Set image translation based on currentIndex */}
-          <div className="absolute flex w-full h-full transition-transform duration-1000 ease-in-out"
-            style={{
-              transform: `translateX(-${currentIndex * 100}%)`, // Slides images horizontally
-            }}
-          >
-            {images.map((src, index) => (
-              <div className="w-full flex-shrink-0" key={index}>
-                <img
-                  src={src}
-                  alt={`Slide ${index + 1}`}
-                  className="w-full h-full object-contain transition-all duration-1000 ease-in-out"
-                  onLoad={handleImageLoad}
-                />
-              </div>
-            ))}
-          </div>
+          {imagesLoaded && (
+            <div className="absolute flex w-full h-full transition-transform duration-1000 ease-in-out"
+              style={{
+                transform: `translateX(-${currentIndex * 100}%)`, // Slides images horizontally
+              }}
+            >
+              {images.map((src, index) => (
+                <div className="w-full flex-shrink-0" key={index}>
+                  <img
+                    src={src}
+                    alt={`Slide ${index + 1}`}
+                    className="w-full h-full object-contain transition-all duration-1000 ease-in-out"
+                    onLoad={handleImageLoad}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Navigation arrows */}
