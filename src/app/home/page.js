@@ -1,6 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import React from "react";
+import ReactDOM from 'react-dom/client'
+import EmblaCarousel from "../components/EmblaCarousel"
+import '../embla.css';
 import EventCard from "../components/EventCard.jsx";
 import YouTubeLatestVideo from "../components/YouTubeLatestVideo";
 import ImageCarousel from "../components/ImageCarousel.jsx";
@@ -22,12 +25,7 @@ const images = [
   "/pics/5.jpg",
 ];
 
-const options = {
-  loop: true,
-  speed: 10,
-  dragFree: true,
-  // Add any other options you need here
-};
+const OPTIONS = { dragFree: true, loop: true }
 
 export default function HomePage() {
   const [devotion, setDevotion] = useState(null);
@@ -91,7 +89,16 @@ export default function HomePage() {
       <h1 className="text-center text-3xl font-bold mt-4 p-4">
             Welcome to My Website
           </h1>
-          <ImageCarousel images={images} options={options} />
+          {/* <ImageCarousel images={images} options={options} /> */}
+          <EmblaCarousel slides={images} options={OPTIONS} />
+
+          {/* <script>
+          ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+)
+          </script> */}
         <div className="p-4">
           
           <EventCardSkeleton />
