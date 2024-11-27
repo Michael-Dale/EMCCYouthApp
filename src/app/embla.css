@@ -19,15 +19,20 @@
   min-width: 0;
   max-width: 100%; /* Prevent from growing larger than viewport */
   padding-left: var(--slide-spacing);
+
+  /* Set explicit height for consistent centering */
+  height: 450px; /* Set to the maximum height of your images */
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
 }
+
 .embla__slide__img {
   border-radius: 1.8rem;
   display: block;
-  height: auto;
-  max-height: 450px;
-  /* height: var(--slide-height); */
-  width: 100%;
-  object-fit: cover;
+  max-height: 100%; /* Image respects the slide height */
+  width: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Ensure the whole image fits within */
 }
 .embla__controls {
   display: grid;
