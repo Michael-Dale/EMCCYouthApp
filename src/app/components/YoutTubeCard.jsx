@@ -1,7 +1,7 @@
 import React from "react";
 import { Play, ThumbsUp, Share2, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
+import Image from "next/image";
 export default function YouTubeEmbed({ subscribers, title, thumbnail, link }) {
   if (!thumbnail) {
     thumbnail = "/pics/thumbnail.png";
@@ -63,11 +63,13 @@ export default function YouTubeEmbed({ subscribers, title, thumbnail, link }) {
         </svg>
       </div>
       <div className="relative">
-        <div className="aspect-w-16 aspect-h-9 bg-gray-200">
-          <img
+        <div className="relative aspect-video w-full">
+          <Image
             src={thumbnail}
             alt="Video thumbnail"
-            className="object-cover w-full h-full"
+            fill
+            className="object-cover object-[center_51%]"
+            sizes="(max-width: 768px) 99vw, (max-width: 1200px) 49vw, 32vw"
           />
           <div className="absolute inset-0 flex items-center justify-center">
             <a href={link} target="_blank" rel="noopener noreferrer">
