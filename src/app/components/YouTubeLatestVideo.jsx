@@ -73,7 +73,7 @@ const YouTubeLatestVideo = () => {
   }
 
   return (
-    <div className="flex justify-center p-4">
+    <div className="flex justify-center ">
       {latestVideo ? (
         <YouTubeEmbed
           title={latestVideo.snippet.title}
