@@ -82,6 +82,9 @@ export async function GET() {
     const videoId = video.id.videoId;  // Extract videoId from the 'id' object
     const thumbnail_url = thumbnails.high.url;
     const video_link = `https://www.youtube.com/watch?v=${videoId}`;
+    const video_date=video.snippet.publishedAt;
+
+    console.log("Video date: ",video_date);
 
     // Save the fetched video data to the database
     await YoutubeModel.create({
