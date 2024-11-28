@@ -2,6 +2,8 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { useState, useEffect } from "react";
 
 const home = () => (
   <svg
@@ -139,7 +141,9 @@ function NavbarIcon({ icon: Icon, label, link, activeColor }) {
   return (
     <Link
       href={link}
-      className={`flex flex-col items-center ${pathname === link ? `text-[${activeColor}]` : "text-white"}`}
+      className={`flex flex-col items-center ${
+        pathname === link ? `text-[${activeColor}]` : "text-white"
+      }`}
       style={pathname === link ? { color: activeColor } : {}}
     >
       <Icon className="w-6 h-6 mb-1" />
@@ -149,6 +153,34 @@ function NavbarIcon({ icon: Icon, label, link, activeColor }) {
 }
 
 export default function Component() {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    // const { user } = useKindeBrowserClient();
+    // Log the user object to debug
+    // console.log("User object:", user);
+    //   User object:
+    //   {
+    //     "id": "kp_0d37c87ba5ca4710a94ca2252cfd14ed",
+    //     "email": "jono7384@gmail.com",
+    //     "family_name": "Loxton",
+    //     "given_name": "Jonathan",
+    //     "picture": "https://lh3.googleusercontent.com/a/ACg8ocJtfDdcFbVoD8D8p0Tp1DFFUvTeaCBYSqMsfVvV_P-HAj-Twg=s96-c"
+    // }
+
+    const checkAdminStatus = async () => {
+      try {
+        const response = await fetch("/api/check-admin");
+        const data = await response.json();
+        setIsAdmin(data.isAdmin);
+      } catch (error) {
+        console.error("Error checking admin status:", error);
+        setIsAdmin(false);
+      }
+    };
+
+    checkAdminStatus();
+  }, []);
   return (
     <nav
       className="fixed bottom-0 left-0 right-0 bg-black p-3 "
@@ -186,12 +218,14 @@ export default function Component() {
           activeColor="#40bcf4"
         />
 
-<NavbarIcon
-  icon={admin}
-  label="Admin"
-  link="/admin"
-  activeColor="#8e44ad"
-/>
+        {isAdmin && (
+          <NavbarIcon
+            icon={admin}
+            label="Admin"
+            link="/admin"
+            activeColor="#8e44ad"
+          />
+        )}
       </div>
     </nav>
   );

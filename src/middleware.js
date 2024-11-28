@@ -1,6 +1,7 @@
 // middleware.js
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
+import { getUserRole } from "./lib/auth";
 
 export async function middleware(request) {
   if (
@@ -15,6 +16,8 @@ export async function middleware(request) {
 
   // List of public routes that don't require authentication
   const publicRoutes = ["/", "/api/auth"];
+
+  const adminRoutes = ["/admin", "/admin-settings", "/upload"];
 
   // Check if the current path is in public routes
   const isPublicRoute = publicRoutes.some(
@@ -33,7 +36,18 @@ export async function middleware(request) {
   if (!authenticated) {
     return NextResponse.redirect(new URL("/", request.url));
   }
+  const isAdminRoute = adminRoutes.some((route) =>
+    request.nextUrl.pathname.startsWith(route)
+  );
 
+  if (isAdminRoute) {
+    const role = await getUserRole(); //This needs to be replaced as getUserRole does not work
+
+    if (!role) {
+      // Redirect non-admin users trying to access admin routes
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+  }
   // Allow access to protected routes for authenticated users
   return NextResponse.next();
 }
