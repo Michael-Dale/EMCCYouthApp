@@ -57,6 +57,7 @@
 
 import { NextResponse } from "next/server";
 import YoutubeModel from "../../../db/models/YoutubeModel";  // Import the model
+const dayjs = require('dayjs')
 
 export async function GET() {
   try {
@@ -84,7 +85,7 @@ export async function GET() {
     const video_link = `https://www.youtube.com/watch?v=${videoId}`;
     const video_date=video.snippet.publishedAt;
 
-    console.log("Video date: ",video_date);
+    console.log("Video date: ",video_date , "Formated: ", dayjs(video_date).format('DD/MM/YYYY'));
 
     // Save the fetched video data to the database
     await YoutubeModel.create({
