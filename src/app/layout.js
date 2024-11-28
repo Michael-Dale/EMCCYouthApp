@@ -34,12 +34,8 @@ export default async function RootLayout({ children }) {
       >
         {/* <main className={`flex-grow ${isAuthed ? "pb-20" : ""}`}> uncomment when auth is implemented */}
         <main className="flex-grow pb-20">{children}</main>
-        <Navbar />
-        {/* {isAuthed && (
-          <footer className="fixed bottom-0 left-0 right-0 h-16">
-            <Navbar />
-          </footer>
-        )} */}
+
+        {isAuthed ? <Navbar /> : null}
       </body>
     </html>
   );

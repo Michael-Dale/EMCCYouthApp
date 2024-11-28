@@ -10,8 +10,6 @@ export default async function Home() {
   const isAuthed = await isAuthenticated();
   return (
     <>
-      {/* <LoginLink>Sign in</LoginLink>
-      <RegisterLink>Sign up</RegisterLink> */}
       <nav className="flex justify-between items-center py-8 px-24">
         <h1 className="font-bold text-2xl">EMCC</h1>
         {isAuthed ? (
