@@ -194,7 +194,7 @@ I will uphold you with My righteous right hand”`}
               <BlogPostSnippet
                 id={1}
                 name={"John Doe"}
-                date={"2024-10-16"}
+                date={"16/10/24"}
                 title={"Testimony not found"}
                 content={"There is no latest testimony available."}
               />
