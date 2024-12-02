@@ -33,7 +33,18 @@ export default function StyledForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    // Clear the form immediately
+    setFormData({
+      firstName: "",
+      lastName: "",
+      contactInfo: "",
+      requestType: "",
+      message: "",
+    });
+  
+    setIsAnonymous(false); // Optionally reset `isAnonymous` if needed
+  
     try {
       const response = await fetch("/api/send-email", {
         method: "POST",
@@ -42,17 +53,18 @@ export default function StyledForm() {
         },
         body: JSON.stringify({ isAnonymous, ...formData }),
       });
-
+  
       if (!response.ok) {
         throw new Error("Failed to send email");
       }
-
+  
       const data = await response.json();
       console.log(data.message); // "Email sent successfully"
     } catch (error) {
       console.error("Error:", error);
     }
   };
+  
 
   return (
     <div className="form-wrapper border border-gray-300 rounded-2xl p-6 shadow-md max-w-md mx-auto my-6 bg-grey transition-shadow duration-200 hover:shadow-lg">
@@ -123,6 +135,7 @@ export default function StyledForm() {
             </Label>
             <Select
               name="requestType"
+              value={formData.requestType}
               onValueChange={(value) =>
                 handleInputChange({ target: { name: "requestType", value } })
               }
