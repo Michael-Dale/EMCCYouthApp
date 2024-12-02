@@ -94,19 +94,24 @@ export async function PUT(request) {
 
 export async function DELETE(request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get("id");
+    const url = new URL(request.url);
+    const id = url.searchParams.get("id");  // Use searchParams for query params
+
     if (!id) {
       return NextResponse.json({ error: "ID is required" }, { status: 400 });
     }
 
+    // Ensure the event exists before deleting
+    const event = await EventModel.getById(id);
+    if (!event) {
+      return NextResponse.json({ error: "Event not found" }, { status: 404 });
+    }
+
+    // Delete the event
     await EventModel.delete(id);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error deleting event:", error);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
