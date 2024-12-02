@@ -3,8 +3,11 @@ import { useState, useEffect } from "react";
 import PageTransition from "../../components/PageTransition";
 import DevotionalPost from "../../components/DevotionalPost";
 import DevotionSkeleton from "@/app/components/skeletons/DevotionSkeleton";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function Blog() {
+  const router = useRouter(); // Next.js Router for navigation
   const [devotions, setDevotions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -57,6 +60,28 @@ export default function Blog() {
   return (
     <PageTransition>
       <div className="p-4">
+        <div className="mb-6 flex justify-start">
+          <Button
+            type="button"
+            onClick={() => router.push("/blog")}
+            className="bg-black text-white rounded-full px-4 py-2 shadow-md hover:bg-gray-800 flex items-center justify-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 19.5L8.25 12l7.5-7.5"
+              />
+            </svg>
+          </Button>
+        </div>
         {devotions.map((devotion) => (
           <DevotionalPost
             key={devotion.id}

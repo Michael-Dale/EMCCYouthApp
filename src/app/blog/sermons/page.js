@@ -1,8 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import PdfThumbnail from "../../components/PdfThumbnail";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function SermonsPage() {
+  const router = useRouter(); // Next.js Router for navigation
   const [sermons, setSermons] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -28,6 +31,27 @@ export default function SermonsPage() {
   }
 
   return (
+    <div className="p-4">
+       <Button
+            type="button"
+            onClick={() => router.push("/blog")}
+            className="bg-black text-white rounded-full px-4 py-2 shadow-md hover:bg-gray-800 flex items-center justify-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 19.5L8.25 12l7.5-7.5"
+              />
+            </svg>
+          </Button>
     <div className="flex flex-col items-center p-4 space-y-4">
       {sermons.map((sermon) => (
         <div
@@ -41,6 +65,7 @@ export default function SermonsPage() {
           />
         </div>
       ))}
+    </div>
     </div>
   );
 }
