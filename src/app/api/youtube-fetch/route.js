@@ -100,7 +100,7 @@ export async function GET() {
       title,
       thumbnail_url,
       video_link,
-      video_date,
+      video_date
     });
   } catch (error) {
     console.error("Error fetching YouTube data:", error);

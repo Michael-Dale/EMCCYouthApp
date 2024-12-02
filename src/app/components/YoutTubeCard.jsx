@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Play, ThumbsUp, Share2, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-export default function YouTubeEmbed({ subscribers, title, thumbnail, link, video_date }) {
+export default function YouTubeEmbed({
+  subscribers,
+  title,
+  thumbnail,
+  link,
+  video_date,
+}) {
+
+  const [shareText, setShareText] = useState("Share"); // State to update button text
+
   if (!thumbnail) {
     thumbnail = "/pics/thumbnail.png";
   }
+
+  // Function to copy the link to clipboard and update button text
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(link);
+      setShareText("Link copied!"); // Update button text
+      setTimeout(() => setShareText("Share"), 2000); // Reset after 2 seconds
+    } catch (err) {
+      console.error("Failed to copy the link:", err);
+      alert("Unable to copy the link. Please try again.");
+    }
+  };
+
   return (
     <div className="max-w-md mx-auto my-4 sm:my-8 bg-white shadow-lg rounded-2xl border overflow-hidden">
       <div className="p-4 flex justify-center sm:justify-start">
@@ -107,13 +129,15 @@ export default function YouTubeEmbed({ subscribers, title, thumbnail, link, vide
             variant="outline"
             size="sm"
             className="self-start sm:self-auto flex items-center gap-1 text-xs sm:text-sm"
+            onClick={() => window.open("https://www.youtube.com/@ConnectYth", "_blank")}
           >
+             
             Subscribe
             <Bell className="w-3 h-3 sm:w-4 sm:h-4" />
           </Button>
         </div>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs sm:text-sm text-gray-500">
-          <p className="mb-2 sm:mb-0">1.5M views • {video_date}</p>
+          <p className="mb-2 sm:mb-0">350K views • {video_date}</p>
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"
@@ -123,14 +147,9 @@ export default function YouTubeEmbed({ subscribers, title, thumbnail, link, vide
               <ThumbsUp className="w-3 h-3 sm:w-4 sm:h-4" />
               245K
             </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="flex items-center gap-1 text-xs sm:text-sm px-2 sm:px-3"
-            >
-              <Share2 className="w-3 h-3 sm:w-4 sm:h-4" />
-              Share
-            </Button>
+            <Button variant="outline" onClick={handleShare}>
+            <Share2 size={16} className="mr-1" /> {shareText}
+          </Button>
           </div>
         </div>
       </div>
