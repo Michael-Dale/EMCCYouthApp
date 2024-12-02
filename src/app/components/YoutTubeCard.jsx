@@ -2,7 +2,7 @@ import React from "react";
 import { Play, ThumbsUp, Share2, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-export default function YouTubeEmbed({ subscribers, title, thumbnail, link }) {
+export default function YouTubeEmbed({ subscribers, title, thumbnail, link, video_date }) {
   if (!thumbnail) {
     thumbnail = "/pics/thumbnail.png";
   }
@@ -113,7 +113,7 @@ export default function YouTubeEmbed({ subscribers, title, thumbnail, link }) {
           </Button>
         </div>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs sm:text-sm text-gray-500">
-          <p className="mb-2 sm:mb-0">1.5M views • 3 months ago</p>
+          <p className="mb-2 sm:mb-0">1.5M views • {video_date}</p>
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"

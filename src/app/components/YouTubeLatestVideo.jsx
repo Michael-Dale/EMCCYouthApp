@@ -115,6 +115,9 @@ import YouTubeEmbed from "../components/YoutTubeCard";
 const YouTubeLatestVideo = () => {
   const [latestVideo, setLatestVideo] = useState(null);
   const [error, setError] = useState(null);
+  const dayjs = require('dayjs')
+  var relativeTime = require("dayjs/plugin/relativeTime");
+  dayjs.extend(relativeTime);
 
   useEffect(() => {
     const fetchVideoFromDatabase = async () => {
@@ -146,6 +149,7 @@ const YouTubeLatestVideo = () => {
           title={latestVideo.title}
           link={latestVideo.video_link}
           thumbnail={latestVideo.thumbnail_url}
+          video_date={dayjs(latestVideo.datetime).fromNow()}
         />
       ) : (
         <div>Loading...</div>

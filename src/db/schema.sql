@@ -16,8 +16,10 @@ CREATE TABLE youtube_component (
     id SERIAL PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     thumbnail_url VARCHAR(255) NOT NULL,
-    video_link VARCHAR(255) NOT NULL
+    video_link VARCHAR(255) NOT NULL,
+    datetime TIMESTAMP NOT NULL
 );
+
 
 CREATE TABLE devotion (
     id SERIAL PRIMARY KEY,

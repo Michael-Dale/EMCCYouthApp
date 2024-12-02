@@ -24,11 +24,11 @@ const YoutubeModel = {
   },
 
   // Insert a new YouTube video into the database
-  async create({ title, thumbnail_url, video_link }) {
+  async create({ title, thumbnail_url, video_link, video_date}) {
     try {
       const result = await pool.query(
-        "INSERT INTO youtube_component (title, thumbnail_url, video_link) VALUES ($1, $2, $3) RETURNING *",
-        [title, thumbnail_url, video_link]
+        "INSERT INTO youtube_component (title, thumbnail_url, video_link, datetime) VALUES ($1, $2, $3, $4) RETURNING *",
+        [title, thumbnail_url, video_link, video_date]
       );
       return result.rows[0];
     } catch (error) {
@@ -37,11 +37,11 @@ const YoutubeModel = {
   },
 
   // Update an existing YouTube video entry in the database
-  async update(id, { title, thumbnail_url, video_link }) {
+  async update(id, { title, thumbnail_url, video_link ,video_date}) {
     try {
       const result = await pool.query(
-        "UPDATE youtube_component SET title = $1, thumbnail_url = $2, video_link = $3 WHERE id = $4 RETURNING *",
-        [title, thumbnail_url, video_link, id]
+        "UPDATE youtube_component SET title = $1, thumbnail_url = $2, video_link = $3, datetime= $5 WHERE id = $4 RETURNING *",
+        [title, thumbnail_url, video_link, id,video_date]
       );
       return result.rows[0];
     } catch (error) {

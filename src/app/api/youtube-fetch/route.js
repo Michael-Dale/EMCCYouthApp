@@ -85,13 +85,14 @@ export async function GET() {
     const video_link = `https://www.youtube.com/watch?v=${videoId}`;
     const video_date=video.snippet.publishedAt;
 
-    console.log("Video date: ",video_date , "Formated: ", dayjs(video_date).format('DD/MM/YYYY'));
+    // console.log("Video date: ",video_date , "Formated: ", dayjs(video_date).format('DD/MM/YYYY'));
 
     // Save the fetched video data to the database
     await YoutubeModel.create({
       title,
       thumbnail_url,
       video_link,
+      video_date,
     });
 
     // Return the inserted video data as the JSON response
@@ -99,6 +100,7 @@ export async function GET() {
       title,
       thumbnail_url,
       video_link,
+      video_date,
     });
   } catch (error) {
     console.error("Error fetching YouTube data:", error);
