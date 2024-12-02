@@ -7,16 +7,12 @@ const faqData = [
     answer: "Unfortunately, Apple only allows an event to be added to the iOS calendar through the Safari browser."    
   },
   {
-    question: "How long does shipping take?",
-    answer: "Shipping usually takes between 5-7 business days depending on your location. You’ll receive a tracking number once your order ships.",
+    question: "What does 'Submit anonymously' mean?",
+    answer:  "When you submit a query/suggestion, etc., and the 'Submit anonymously' option is selected, all of your information will be hidden and replaced with 'N/A'. This will ensure that you are completely anonymous.",
   },
   {
-    question: "Do you offer international shipping?",
-    answer: "Yes, we ship to many countries worldwide. Shipping costs and delivery times may vary depending on the destination.",
-  },
-  {
-    question: "Can I change or cancel my order?",
-    answer: "Once an order is placed, we try to process it as quickly as possible. If you need to make changes, please contact us within 24 hours.",
+    question: "Who can see my profile picture?",
+    answer: "You are the only person using the app who can see this, but please try to keep it appropriate. Admins will be able to see your profile picture.",
   },
 ];
 
