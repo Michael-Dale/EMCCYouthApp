@@ -96,15 +96,14 @@ export async function middleware(request) {
     request.nextUrl.pathname.startsWith(route)
   );
 
-  if (isAdminRoute) {
-    // Replace this logic with proper role checking as `getUserRole` is not implemented
-    const role = await getUserRole(); // Replace this line with the actual logic
-
-    if (!role) {
-      // Redirect non-admin users trying to access admin routes
-      return NextResponse.redirect(new URL("/", request.url));
-    }
-  }
+  // if (isAdminRoute) {
+  //       const role = await getUserRole(); //This needs to be replaced as getUserRole does not work
+    
+  //       if (!role) {
+  //         // Redirect non-admin users trying to access admin routes
+  //         return NextResponse.redirect(new URL("/", request.url));
+  //       }
+  //     }
 
   // Allow access to protected routes for authenticated users
   return NextResponse.next();

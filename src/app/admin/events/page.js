@@ -68,7 +68,7 @@ export default function ManageEvents() {
         <Button
           type="button"
           onClick={() => router.push("/admin")}
-          className="bg-blue-500 text-white rounded-full px-4 py-2 shadow-md hover:bg-blue-600"
+          className="bg-black text-white rounded-full px-4 py-2 shadow-md hover:bg-blue-600"
         >
           Back to Admin
         </Button>
