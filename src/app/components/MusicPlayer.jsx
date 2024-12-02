@@ -120,19 +120,19 @@ export default function MusicPlayer({ playlistUrl, songName = "Connect Youth Pla
 
       <style jsx>{`
         @keyframes grow1 {
+          0% { height: 10px; transform: translateY(0); }
+          50% { height: 40px; transform: translateY(-15px); }
+          100% { height: 10px; transform: translateY(0); }
+        }
+        @keyframes grow2 {
           0% { height: 20px; transform: translateY(0); }
           50% { height: 50px; transform: translateY(-15px); }
           100% { height: 20px; transform: translateY(0); }
         }
-        @keyframes grow2 {
-          0% { height: 30px; transform: translateY(0); }
-          50% { height: 60px; transform: translateY(-15px); }
-          100% { height: 30px; transform: translateY(0); }
-        }
         @keyframes grow3 {
-          0% { height: 15px; transform: translateY(0); }
-          50% { height: 40px; transform: translateY(-12.5px); }
-          100% { height: 15px; transform: translateY(0); }
+          0% { height: 5px; transform: translateY(0); }
+          50% { height: 30px; transform: translateY(-12.5px); }
+          100% { height: 5px; transform: translateY(0); }
         }
 
         .animate-grow1 {

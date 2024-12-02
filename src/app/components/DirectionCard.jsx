@@ -14,6 +14,7 @@
 //     </div>
 //   );
 // }
+"use client";
 import {
   Card,
   CardContent,
@@ -36,7 +37,9 @@ export default function Component() {
         <p className="text-lg font-semibold">FRI 6:30PM-9PM</p>
       </CardContent>
       <CardFooter className="flex justify-center">
-        <Button className="rounded-full text-lg px-8 py-6 font-bold hover:bg-red-500 hover:text-black">
+        <Button className="rounded-full text-lg px-8 py-6 font-bold hover:bg-red-500 hover:text-black" 
+         onClick={() => window.open("https://www.google.com/maps/place/Elohim+Meyersdal+Community+Church./@-26.2987321,28.0942523,993m/data=!3m2!1e3!4b1!4m6!3m5!1s0x1e9505391ca5cc5b:0xbe6614f1e9bb630!8m2!3d-26.2987321!4d28.0968326!16s%2Fg%2F11bt_gs4bw?entry=ttu&g_ep=EgoyMDI0MTEyNC4xIKXMDSoASAFQAw%3D%3D", "_blank")}
+        >
           Directions
         </Button>
       </CardFooter>

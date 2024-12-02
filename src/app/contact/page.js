@@ -42,7 +42,7 @@ export default function Contact() {
                   Need help with anything else?
                 </p>
                 <p className="text-xs sm:text-sm opacity-90">
-                  Send a message to Mathew
+                  Send a message to Ps. Matt
                 </p>
               </div>
             </a>
