@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import {
   Share2,
   User,
@@ -13,45 +14,43 @@ import {
   RegisterLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
 
-export default function AccountPage() {
+export default function AccountComponent() {
   const [userName, setUserName] = useState("John Doe");
   const [copied, setCopied] = useState(false); // State to track copy status
 
+  const router = useRouter(); // Use useRouter hook directly
+
   const shareContent = useCallback(() => {
     if (navigator.share) {
-      // Web Share API is supported
       navigator
         .share({
           title: "Check out this awesome web app!",
           text: "I found this really cool app. Have a look!",
-          url: "https://yourhomepage.com", // Replace with your homepage URL
+          url: "https://yourhomepage.com",
         })
         .then(() => console.log("Content shared successfully!"))
         .catch((error) => console.log("Error sharing content:", error));
     } else {
-      // Fallback for unsupported browsers (e.g., iOS)
       fallbackShare();
     }
   }, []);
 
   const fallbackShare = useCallback(() => {
-    const shareUrl = "https://yourhomepage.com"; // Replace with your homepage URL
+    const shareUrl = "https://yourhomepage.com";
     if (navigator.clipboard && window.isSecureContext) {
-      // Use clipboard if available
       navigator.clipboard
         .writeText(shareUrl)
         .then(() => {
           setCopied(true);
-          setTimeout(() => setCopied(false), 2000); // Reset copied status after 2 seconds
+          setTimeout(() => setCopied(false), 2000);
         })
         .catch((error) =>
           console.log("Error copying link to clipboard:", error)
         );
     } else {
-      // Fallback for browsers without clipboard support
       const textArea = document.createElement("textarea");
       textArea.value = shareUrl;
-      textArea.style.position = "fixed"; // Avoid scrolling to bottom
+      textArea.style.position = "fixed";
       textArea.style.top = 0;
       textArea.style.left = 0;
       textArea.style.opacity = 0;
@@ -62,7 +61,7 @@ export default function AccountPage() {
       try {
         document.execCommand("copy");
         setCopied(true);
-        setTimeout(() => setCopied(false), 2000); // Reset copied status after 2 seconds
+        setTimeout(() => setCopied(false), 2000);
       } catch (err) {
         console.error("Fallback: Unable to copy", err);
       }
@@ -71,8 +70,12 @@ export default function AccountPage() {
   }, []);
 
   const menuItems = [
-    { icon: Share2, label: "Share", action: shareContent }, // Share button with Web Share API
-    { icon: Info, label: "About", action: () => console.log("About tapped") },
+    { icon: Share2, label: "Share", action: shareContent },
+    {
+      icon: Info,
+      label: "About",
+      action: () => router.push("/account/about"),
+    },
     {
       icon: User,
       label: "Profile Settings",
@@ -81,7 +84,7 @@ export default function AccountPage() {
     {
       icon: FileText,
       label: "Policy/Terms of Condition",
-      action: () => console.log("Policy/Terms tapped"),
+      action: () => router.push("/account/policy"),
     },
     {
       icon: LogOut,
