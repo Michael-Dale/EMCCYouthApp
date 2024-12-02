@@ -100,7 +100,7 @@ export default function HomePage() {
 )
           </script> */}
         <div className="p-4">
-          {events &&
+          {/* {events &&
             events.map((event) => (
               <EventCard
                 key={event.id}
@@ -109,7 +109,16 @@ export default function HomePage() {
                 location={event.location}
                 date={event.event_datetime}
               />
-            ))}
+            ))} */}
+          {events && events.length > 0 && (
+            <EventCard
+              key={events[0].id}
+              picURL={events[0].image_url}
+              description={events[0].title}
+              location={events[0].location}
+              date={events[0].event_datetime}
+            />
+          )}
 
           <YouTubeLatestVideo />
 

@@ -15,7 +15,8 @@ const EventModel = {
   async getUpcoming() {
     try {
       const result = await pool.query(
-        "SELECT * FROM event WHERE event_datetime >= NOW() ORDER BY event_datetime ASC LIMIT 3"
+        "SELECT * FROM event WHERE event_datetime >= NOW() ORDER BY event_datetime ASC"
+        // "SELECT * FROM event WHERE event_datetime >= NOW() ORDER BY event_datetime ASC LIMIT 3"
       );
       return result.rows;
     } catch (error) {
