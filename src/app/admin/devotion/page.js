@@ -1,19 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
+import DevotionalPost from "@/app/components/DevotionalPost";
 
 export default function ManageDevotions() {
+  const [devotion, setDevotion] = useState(null);
   const router = useRouter(); // Next.js Router for navigation
   const [devotionData, setDevotionData] = useState({
     verse: "",
     message: "",
     date: "",
   });
+
+  useEffect(() => {
+    async function fetchLatestDevotion() {
+      try {
+        const response = await fetch("/api/devotions?latest=true");
+        const data = await response.json();
+        setDevotion(data);
+      } catch (error) {
+        console.error("Error fetching latest devotion:", error);
+        setDevotion(false);
+      }
+    }
+    fetchLatestDevotion();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -123,6 +139,23 @@ export default function ManageDevotions() {
           </Button>
         </form>
       </div>
+      {devotion ? (
+              <DevotionalPost
+                verse={devotion.verse}
+                message={devotion.message}
+                date={devotion.devotion_datetime}
+              />
+            ) : (
+              <DevotionalPost
+                verse={`Isaiah 41:10 
+“Fear not, for I am with you;
+Be not dismayed, for I am your God. 
+I will strengthen you,
+I will uphold you with My righteous right hand”`}
+                message="Remember, with faith and determination, you can overcome any challenge."
+                date="2024/10/11"
+              />
+            )}
     </div>
   );
 }

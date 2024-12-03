@@ -60,8 +60,44 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
-    const body = await request.json();
-    const newEvent = await EventModel.create(body);
+    const contentType = request.headers.get("content-type");
+
+    if (!contentType || !contentType.includes("multipart/form-data")) {
+      return NextResponse.json(
+        { error: "Invalid content type" },
+        { status: 400 }
+      );
+    }
+
+    const formData = await request.formData();
+    const title = formData.get("title");
+    const location = formData.get("location");
+    const date = formData.get("date");
+    const image = formData.get("image"); // This might be a file blob
+
+    // Validate fields
+    if (!title || !location || !date) {
+      return NextResponse.json(
+        { error: "All fields are required" },
+        { status: 400 }
+      );
+    }
+
+    // Handle image upload (if necessary)
+    let imageUrl = null;
+    if (image && image.name) {
+      // Example: Upload the file to a storage solution (e.g., AWS S3, Cloudinary)
+      imageUrl = `/uploads/${image.name}`; // Replace with actual upload logic
+    }
+
+    // Create the event
+    const newEvent = await EventModel.create({
+      title,
+      location,
+      event_datetime: date,
+      image_url: imageUrl,
+    });
+
     return NextResponse.json(newEvent);
   } catch (error) {
     console.error("Error creating event:", error);
@@ -71,6 +107,7 @@ export async function POST(request) {
     );
   }
 }
+
 
 export async function PUT(request) {
   try {
