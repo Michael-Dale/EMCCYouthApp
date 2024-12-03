@@ -64,7 +64,7 @@ export async function middleware(request) {
     return NextResponse.next();
   }
 
-  const { isAuthenticated } = getKindeServerSession();
+  const { isAuthenticated, getPermissions } = getKindeServerSession();
   const authenticated = await isAuthenticated();
 
   // List of public routes that don't require authentication
@@ -96,14 +96,16 @@ export async function middleware(request) {
     request.nextUrl.pathname.startsWith(route)
   );
 
-  // if (isAdminRoute) {
-  //       const role = await getUserRole(); //This needs to be replaced as getUserRole does not work
-    
-  //       if (!role) {
-  //         // Redirect non-admin users trying to access admin routes
-  //         return NextResponse.redirect(new URL("/", request.url));
-  //       }
-  //     }
+  if (isAdminRoute) {
+    // const role = await getUserRole(); //This needs to be replaced as getUserRole does not work
+    const permissions = await getPermissions();
+    const isAdmin = permissions?.permissions?.includes("admin");
+
+    if (!isAdmin) {
+      // Redirect non-admin users trying to access admin routes
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+  }
 
   // Allow access to protected routes for authenticated users
   return NextResponse.next();

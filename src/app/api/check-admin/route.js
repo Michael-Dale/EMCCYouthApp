@@ -19,7 +19,7 @@ export async function GET() {
   //     phone_number: undefined
   //   }
   const isAdmin = permissions?.permissions?.includes("admin");
-  //   console.log(isAdmin);//print true if user is an admin, false if user is not
+  console.log(isAdmin); //print true if user is an admin, false if user is not
 
   return NextResponse.json({ isAdmin });
 }
