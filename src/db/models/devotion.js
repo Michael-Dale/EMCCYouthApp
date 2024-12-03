@@ -65,6 +65,7 @@ const DevotionModel = {
       throw error;
     }
   },
+  
 };
 
 module.exports = DevotionModel;
