@@ -9,7 +9,6 @@ export default function YouTubeEmbed({
   link,
   video_date,
 }) {
-
   const [shareText, setShareText] = useState("Share"); // State to update button text
 
   if (!thumbnail) {
@@ -109,7 +108,7 @@ export default function YouTubeEmbed({
       </div>
       <div className="p-3 sm:p-4">
         <h2 className="text-lg sm:text-xl font-bold mb-2">{title}</h2>
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+        <div className="flex justify-between sm:flex-row sm:items-center sm:justify-between mb-4">
           <div className="flex items-center mb-2 sm:mb-0">
             <img
               src="/icons/connect youth logo.svg?height=40&width=40"
@@ -129,15 +128,16 @@ export default function YouTubeEmbed({
             variant="outline"
             size="sm"
             className="self-start sm:self-auto flex items-center gap-1 text-xs sm:text-sm"
-            onClick={() => window.open("https://www.youtube.com/@ConnectYth", "_blank")}
+            onClick={() =>
+              window.open("https://www.youtube.com/@ConnectYth", "_blank")
+            }
           >
-             
             Subscribe
             <Bell className="w-3 h-3 sm:w-4 sm:h-4" />
           </Button>
         </div>
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs sm:text-sm text-gray-500">
-          <p className="mb-2 sm:mb-0">350K views • {video_date}</p>
+        <div className="flex justify-between sm:flex-row items-center sm:justify-between text-xs sm:text-sm text-gray-500">
+          <p className=" sm:mb-0">350K views • {video_date}</p>
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"
@@ -147,9 +147,9 @@ export default function YouTubeEmbed({
               <ThumbsUp className="w-3 h-3 sm:w-4 sm:h-4" />
               245K
             </Button>
-            <Button variant="outline" onClick={handleShare}>
-            <Share2 size={16} className="mr-1" /> {shareText}
-          </Button>
+            <Button variant="customStyle" onClick={handleShare}>
+              <Share2 size={16} className="mr-1 text-gray-500" /> {shareText}
+            </Button>
           </div>
         </div>
       </div>
