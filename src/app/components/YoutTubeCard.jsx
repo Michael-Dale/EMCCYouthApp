@@ -138,7 +138,7 @@ export default function YouTubeEmbed({
         </div>
         <div className="flex justify-between sm:flex-row items-center sm:justify-between text-xs sm:text-sm text-gray-500">
           <p className=" sm:mb-0">350K views • {video_date}</p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center">
             <Button
               variant="ghost"
               size="sm"
@@ -148,7 +148,7 @@ export default function YouTubeEmbed({
               245K
             </Button>
             <Button variant="customStyle" onClick={handleShare}>
-              <Share2 size={16} className="mr-1 text-gray-500" /> {shareText}
+              <Share2 size={14} className="mr-1 text-gray-500" /> {shareText}
             </Button>
           </div>
         </div>
