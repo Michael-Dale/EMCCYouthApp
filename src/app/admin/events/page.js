@@ -68,7 +68,7 @@ export default function ManageEvents() {
 
       if (response.ok) {
         alert("Event created successfully!");
-        router.push("/admin");
+        router.push("/admin/events");
       } else {
         alert("Error creating event!");
       }

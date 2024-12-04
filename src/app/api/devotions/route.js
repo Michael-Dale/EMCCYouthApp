@@ -33,6 +33,12 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     const data = await request.json();
+    
+    // Ensure that devotion_datetime is in the right format (ISO string)
+    if (data.devotion_datetime) {
+      data.devotion_datetime = new Date(data.devotion_datetime).toISOString();
+    }
+    
     const newDevotion = await DevotionModel.create(data);
     return NextResponse.json(newDevotion, { status: 201 });
   } catch (error) {
@@ -65,12 +71,17 @@ export async function DELETE(request) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
     await DevotionModel.delete(id);
-    return NextResponse.json({ message: "Devotion deleted" }, { status: 204 });
+
+    // Return 204 No Content without a body
+    return new Response(null, { status: 204 });
   } catch (error) {
     console.error("Error deleting devotion:", error);
+
+    // Return a proper 500 error response
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
     );
   }
 }
+
