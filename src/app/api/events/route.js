@@ -1,35 +1,6 @@
 import { NextResponse } from "next/server";
 import EventModel from "@/db/models/event";
 
-// // Get all events
-// GET /api/events
-
-// // Get upcoming events
-// GET /api/events?upcoming=true
-
-// // Get specific event
-// GET /api/events?id=1
-
-// // Create new event
-// POST /api/events
-// Body: {
-//   "image_url": "...",
-//   "title": "...",
-//   "location": "...",
-//   "event_datetime": "2024-11-20T18:00:00"
-// }
-
-// // Update event
-// PUT /api/events?id=1
-// Body: {
-//   "image_url": "...",
-//   "title": "...",
-//   "location": "...",
-//   "event_datetime": "2024-11-20T18:00:00"
-// }
-
-// // Delete event
-// DELETE /api/events?id=1
 
 export async function GET(request) {
   try {
