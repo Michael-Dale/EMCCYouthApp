@@ -1,20 +1,52 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
+import GoogleFormLink from "../../components/GoogleFormLink";
 
 export default function ManageRegistrationLink() {
-  const router = useRouter(); // Next.js Router for navigation
+  const router = useRouter();
+  const [googleForm, setGoogleForm] = useState(null);
+  const [formLinks, setFormLinks] = useState([]); // Holds all form links
+  const [selectedFormId, setSelectedFormId] = useState(""); // Selected form for deletion
   const [registrationData, setRegistrationData] = useState({
     title: "",
     description: "",
     image: null,
-    googleFormUrl: "",
+    form_link: "",
   });
+
+  const fetchFormLinksAndLatest = async () => {
+    try {
+      // Fetch all form links
+      const allResponse = await fetch("/api/form-link");
+      if (allResponse.ok) {
+        const allData = await allResponse.json();
+        setFormLinks(allData);
+      } else {
+        console.error("Failed to fetch form links.");
+      }
+
+      // Fetch the latest form link
+      const latestResponse = await fetch("/api/form-link?latest=true");
+      if (latestResponse.ok) {
+        const latestData = await latestResponse.json();
+        setGoogleForm(latestData);
+      } else {
+        console.error("Failed to fetch the latest form link.");
+      }
+    } catch (error) {
+      console.error("Error fetching form links:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchFormLinksAndLatest();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -34,24 +66,23 @@ export default function ManageRegistrationLink() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission (e.g., send data to the server)
     const formData = new FormData();
     formData.append("title", registrationData.title);
     formData.append("description", registrationData.description);
-    formData.append("googleFormUrl", registrationData.googleFormUrl);
+    formData.append("form_link", registrationData.form_link);
     if (registrationData.image) {
-      formData.append("image", registrationData.image);
+      formData.append("form_image", registrationData.image);
     }
 
     try {
-      const response = await fetch("/api/admin/registration-link", {
+      const response = await fetch("/api/form-link", {
         method: "POST",
         body: formData,
       });
 
       if (response.ok) {
         alert("Registration link created successfully!");
-        router.push("/admin"); // Redirect to /admin page after success
+        await fetchFormLinksAndLatest(); // Fetch the updated data
       } else {
         alert("Error creating registration link!");
       }
@@ -61,9 +92,33 @@ export default function ManageRegistrationLink() {
     }
   };
 
+  const handleDelete = async () => {
+    if (!selectedFormId) {
+      alert("Please select a form to delete.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/form-link?id=${selectedFormId}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        alert("Form link deleted successfully!");
+        await fetchFormLinksAndLatest(); // Fetch the updated data
+        setSelectedFormId(""); // Reset selected form ID
+      } else {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.error}`);
+      }
+    } catch (error) {
+      console.error("Error deleting form link:", error);
+      alert("There was an error deleting the form link.");
+    }
+  };
+
   return (
     <div className="max-w-md mx-auto my-6">
-      {/* Back Button */}
       <div className="mb-6 flex justify-start">
         <Button
           type="button"
@@ -75,11 +130,11 @@ export default function ManageRegistrationLink() {
       </div>
 
       <div className="form-wrapper border border-gray-300 rounded-2xl p-6 shadow-md bg-white transition-shadow duration-200 hover:shadow-lg">
-        {/* Page Title */}
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Create Registration Link</h1>
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+          Create Registration Link
+        </h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Title */}
           <div className="space-y-2">
             <Label htmlFor="title" className="text-gray-800 font-semibold">
               Registration Title
@@ -94,9 +149,11 @@ export default function ManageRegistrationLink() {
             />
           </div>
 
-          {/* Description */}
           <div className="space-y-2">
-            <Label htmlFor="description" className="text-gray-800 font-semibold">
+            <Label
+              htmlFor="description"
+              className="text-gray-800 font-semibold"
+            >
               Description
             </Label>
             <Textarea
@@ -109,7 +166,6 @@ export default function ManageRegistrationLink() {
             />
           </div>
 
-          {/* Image Upload */}
           <div className="space-y-2">
             <Label htmlFor="image" className="text-gray-800 font-semibold">
               Upload Image
@@ -124,28 +180,76 @@ export default function ManageRegistrationLink() {
             />
           </div>
 
-          {/* Google Form URL */}
           <div className="space-y-2">
-            <Label htmlFor="googleFormUrl" className="text-gray-800 font-semibold">
+            <Label htmlFor="form_link" className="text-gray-800 font-semibold">
               Google Form URL
             </Label>
             <Input
               type="url"
-              id="googleFormUrl"
-              name="googleFormUrl"
-              value={registrationData.googleFormUrl}
+              id="form_link"
+              name="form_link"
+              value={registrationData.form_link}
               onChange={handleInputChange}
               className="w-full p-2 border border-gray-300 rounded-md"
               required
             />
           </div>
 
-          {/* Submit Button */}
           <Button type="submit" className="w-full mt-4">
             Create Registration Link
           </Button>
         </form>
       </div>
-    </div>
+      {/* Delete Form */}
+      <div className="form-wrapper border border-gray-300 rounded-2xl p-6 shadow-md bg-white transition-shadow duration-200 hover:shadow-lg mt-6">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+          Delete Registration Link
+        </h1>
+
+        <div className="space-y-2">
+          <Label htmlFor="formToDelete" className="text-gray-800 font-semibold">
+            Select Registration Link to Delete
+          </Label>
+          <select
+            id="formToDelete"
+            name="formToDelete"
+            value={selectedFormId}
+            onChange={(e) => setSelectedFormId(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-md"
+          >
+            <option value="">-- Select Registration Link --</option>
+            {formLinks.map((formLink) => (
+              <option key={formLink.id} value={formLink.id}>
+                {formLink.title}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <Button
+          type="button"
+          onClick={handleDelete}
+          className="w-full mt-4 bg-red-600 hover:bg-red-700"
+        >
+          Delete Registration Link
+        </Button>
+      </div>
+        {formLinks.length > 0 && (
+          <div className="mt-6 space-y-4">
+            {formLinks.map((form) => (
+              <GoogleFormLink
+                key={form.id}
+                formTitle={form.title}
+                formDescription={form.description}
+                googleFormUrl={form.form_link}
+                imagePath={
+                  form.form_image_url ||
+                  "/placeholders/form_image_placeholder.png"
+                }
+              />
+            ))}
+          </div>
+        )}
+      </div>
   );
 }

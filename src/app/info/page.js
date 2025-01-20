@@ -9,6 +9,7 @@ import EventCard from "../components/EventCard";
 
 export default function Info() {
   const [events, setEvents] = useState(null);
+  const [googleForm, setGoogleForm] = useState(null);
 
   useEffect(() => {
     async function fetchUpcomingEvents() {
@@ -21,17 +22,25 @@ export default function Info() {
         setEvents(false);
       }
     }
+
+    async function fetchGoogleForm() {
+      try {
+        const response = await fetch("/api/form-link?latest=true");
+        const data = await response.json();
+        setGoogleForm(data);
+      } catch (error) {
+        console.error("Error fetching Google Form link:", error);
+        setGoogleForm(false);
+      }
+    }
+
     fetchUpcomingEvents();
+    fetchGoogleForm();
   }, []);
 
-  // const img = "/pics/img.jpg";
-  const img = "/pics/Facebook.png";
   return (
     <PageTransition>
       <div className="p-4">
-        {/* <h1 className="text-2xl font-bold mb-4">Info</h1> */}
-        {/* Your contact page content here */}
-
         {events &&
           events.map((event) => (
             <EventCard
@@ -44,12 +53,16 @@ export default function Info() {
           ))}
 
         <DirectionCard />
-        <GoogleFormLink
-          formTitle="Google Form"
-          formDescription="Sign up for our next event!"
-          googleFormUrl="https://forms.gle/examplelink"
-          imagePath={img}
-        />
+
+        {googleForm && (
+          <GoogleFormLink
+            formTitle={googleForm.title}
+            formDescription={googleForm.description}
+            googleFormUrl={googleForm.form_link}
+            imagePath={googleForm.form_image_url}
+          />
+        )}
+
         <MusicPlayer playlistUrl="https://www.youtube.com/playlist?list=PLhQKtlhr7fgMF-WTGil-6ic8S4g5IM40P" />
       </div>
 
