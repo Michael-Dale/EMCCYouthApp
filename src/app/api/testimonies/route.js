@@ -30,3 +30,54 @@ export async function GET(request) {
     );
   }
 }
+
+export async function POST(request) {
+  try {
+    const body = await request.json();
+    const { author, dateTime, title, message } = body;
+
+    const newTestimony = await TestimonyModel.create({
+      author,
+      post_datetime: dateTime,
+      title,
+      message,
+    });
+
+    return NextResponse.json(newTestimony, { status: 201 });
+  } catch (error) {
+    console.error("Error creating testimony:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request) {
+  try {
+    const { id } = await request.json();
+    if (!id) {
+      return NextResponse.json(
+        { error: "Missing testimony ID" },
+        { status: 400 }
+      );
+    }
+
+    const success = await TestimonyModel.delete(id);
+
+    if (success) {
+      return NextResponse.json({ message: "Testimony deleted successfully" });
+    } else {
+      return NextResponse.json(
+        { error: "Testimony not found" },
+        { status: 404 }
+      );
+    }
+  } catch (error) {
+    console.error("Error deleting testimony:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}

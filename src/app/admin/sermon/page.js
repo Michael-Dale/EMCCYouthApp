@@ -115,6 +115,7 @@ export default function ManageSermons() {
         alert("Sermon deleted successfully!");
         setSermons(sermons.filter((sermon) => sermon.id !== parseInt(sermonToDelete)));
         setSermonToDelete("");
+        router.push("/admin/sermon");
       } else {
         alert("Error deleting sermon.");
       }
