@@ -1,29 +1,26 @@
 "use client";
 import { useState, useEffect } from "react";
 import React from "react";
-import ReactDOM from "react-dom/client";
 import EmblaCarousel from "../components/EmblaCarousel";
 import "../embla.css";
 import EventCard from "../components/EventCard.jsx";
 import YouTubeLatestVideo from "../components/YouTubeLatestVideo";
-import ImageCarousel from "../components/ImageCarousel.jsx";
 import DevotionalPost from "../components/DevotionalPost.jsx";
 import PdfThumbnail from "../components/PdfThumbnail";
 import BlogPostSnippet from "../components/BlogPostSnippet.jsx";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import EventCardSkeleton from "../components/skeletons/EventCardSkeleton.jsx";
 
 import PageTransition from "../components/PageTransition.js";
-const img = "/pics/Facebook.png";
-const images = [
-  "/pics/1.jpg",
-  "/pics/2.jpg",
-  "/pics/3.jpg",
-  "/pics/4.jpg",
-  "/pics/5.jpg",
-  "/pics/5.jpg",
-];
+// const img = "/pics/Facebook.png";
+// const images = [
+//   "/pics/1.jpg",
+//   "/pics/2.jpg",
+//   "/pics/3.jpg",
+//   "/pics/4.jpg",
+//   "/pics/5.jpg",
+//   "/pics/5.jpg",
+// ];
 
 const OPTIONS = { dragFree: true, loop: true };
 
@@ -32,8 +29,21 @@ export default function HomePage() {
   const [latestSermon, setLatestSermon] = useState(null);
   const [latestTestimony, setLatestTestimony] = useState(null);
   const [events, setEvents] = useState(null);
+  const [carouselImages, setCarouselImages] = useState([]);
 
   useEffect(() => {
+    async function fetchCarouselImages() {
+      try {
+        const response = await fetch("/api/images");
+        const data = await response.json();
+        const imageUrls = data.map((item) => item.image_url);
+        setCarouselImages(imageUrls);
+      } catch (error) {
+        console.error("Error fetching carousel images:", error);
+        setCarouselImages([]);
+      }
+    }
+
     async function fetchUpcomingEvents() {
       try {
         const response = await fetch("/api/events?upcoming=true");
@@ -77,6 +87,7 @@ export default function HomePage() {
       }
     }
 
+    fetchCarouselImages();
     fetchUpcomingEvents();
     fetchLatestDevotion();
     fetchLatestSermon();
@@ -90,7 +101,12 @@ export default function HomePage() {
           Welcome to My Website
         </h1>
         {/* <ImageCarousel images={images} options={options} /> */}
-        <EmblaCarousel slides={images} options={OPTIONS} />
+        {/* <EmblaCarousel slides={images} options={OPTIONS} /> */}
+        {carouselImages.length > 0 ? (
+          <EmblaCarousel slides={carouselImages} options={OPTIONS} />
+        ) : (
+          <p className="text-center">No images available for the carousel.</p>
+        )}
 
         {/* <script>
           ReactDOM.createRoot(document.getElementById('root')).render(
