@@ -83,7 +83,9 @@ export default function GalleryPage() {
       }
 
       alert("Image deleted successfully!");
-      setGalleryImages(galleryImages.filter((image) => image.id !== parseInt(deleteId)));
+      setGalleryImages(
+        galleryImages.filter((image) => image.id !== parseInt(deleteId))
+      );
       setDeleteId("");
     } catch (error) {
       console.error("Error deleting image:", error);
@@ -107,7 +109,9 @@ export default function GalleryPage() {
 
       <div className="form-wrapper border border-gray-300 rounded-2xl p-6 shadow-md bg-white transition-shadow duration-200 hover:shadow-lg">
         {/* Page Title */}
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Upload Images to Gallery</h1>
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+          Upload Images to Gallery
+        </h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Multiple Image Upload */}
@@ -122,7 +126,6 @@ export default function GalleryPage() {
               accept="image/*"
               onChange={handleFileChange}
               className="w-full p-2 border border-gray-300 rounded-md"
-              multiple // Allow multiple files to be selected
               required
             />
           </div>
@@ -133,8 +136,8 @@ export default function GalleryPage() {
           </Button>
         </form>
       </div>
-       {/* Delete Image Section */}
-       <div className="form-wrapper border border-gray-300 rounded-2xl p-6 shadow-md bg-white transition-shadow duration-200 hover:shadow-lg my-6">
+      {/* Delete Image Section */}
+      <div className="form-wrapper border border-gray-300 rounded-2xl p-6 shadow-md bg-white transition-shadow duration-200 hover:shadow-lg my-6">
         <h2 className="text-2xl font-bold text-center mb-4">Delete Image</h2>
         <form onSubmit={handleDelete} className="space-y-6">
           <div className="space-y-2">
@@ -148,14 +151,21 @@ export default function GalleryPage() {
               className="w-full p-2 border border-gray-300 rounded-md"
               required
             >
-              <option value="" disabled>Select ID</option>
+              <option value="" disabled>
+                Select ID
+              </option>
               {galleryImages.map((image) => (
-                <option key={image.id} value={image.id}>{image.id}</option>
+                <option key={image.id} value={image.id}>
+                  {image.id}
+                </option>
               ))}
             </select>
           </div>
 
-          <Button type="submit" className="w-full mt-4 bg-red-600 hover:bg-red-700">
+          <Button
+            type="submit"
+            className="w-full mt-4 bg-red-600 hover:bg-red-700"
+          >
             Delete Image
           </Button>
         </form>
@@ -165,12 +175,20 @@ export default function GalleryPage() {
       {/* Gallery Images Section */}
       <div className="my-6">
         <h2 className="text-2xl font-bold text-center mb-4">Gallery Images</h2>
-        <p className="font-bold text-center mb-4">We suggest a maximum of 10 photos to save space and time when loading</p>
+        <p className="font-bold text-center mb-4">
+          We suggest a maximum of 10 photos to save space and time when loading
+        </p>
         <div className="grid grid-cols-2 gap-4">
           {galleryImages.map((image) => (
             <div key={image.id} className="relative">
-              <img src={image.image_url} alt={`Image ${image.id}`} className="w-32 h-32 object-cover border border-gray-300 rounded-md" />
-              <span className="absolute top-1 left-1 bg-black text-white text-xs px-2 py-1 rounded">ID: {image.id}</span>
+              <img
+                src={image.image_url}
+                alt={`Image ${image.id}`}
+                className="w-32 h-32 object-cover border border-gray-300 rounded-md"
+              />
+              <span className="absolute top-1 left-1 bg-black text-white text-xs px-2 py-1 rounded">
+                ID: {image.id}
+              </span>
             </div>
           ))}
         </div>
