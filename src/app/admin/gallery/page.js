@@ -165,6 +165,7 @@ export default function GalleryPage() {
       {/* Gallery Images Section */}
       <div className="my-6">
         <h2 className="text-2xl font-bold text-center mb-4">Gallery Images</h2>
+        <p className="font-bold text-center mb-4">We suggest a maximum of 10 photos to save space and time when loading</p>
         <div className="grid grid-cols-2 gap-4">
           {galleryImages.map((image) => (
             <div key={image.id} className="relative">
