@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react"; // Import useRef
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,6 +13,7 @@ export default function GalleryPage() {
   });
   const [galleryImages, setGalleryImages] = useState([]); // To store images from the database
   const [deleteId, setDeleteId] = useState("");
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     async function fetchGalleryImages() {
@@ -38,37 +39,47 @@ export default function GalleryPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      // Placeholder URL logic to simulate storing the URL in the database
       const responses = await Promise.all(
         imageData.images.map(async (file) => {
           const formData = new FormData();
           formData.append("image", file);
-
+  
           const response = await fetch("/api/images", {
             method: "POST",
             body: formData,
           });
-
+  
           if (!response.ok) {
             throw new Error("Error uploading image");
           }
-
+  
           const data = await response.json();
-          return data.url; // Assume API responds with a URL for the uploaded image
+          return data; // Assuming API returns { id, image_url }
         })
       );
-
-      console.log("Uploaded image URLs:", responses); // Log the URLs for now
-      alert("Images uploaded successfully!");
-
-      router.push("/admin/gallery"); // Redirect to /admin page after success
+  
+      // Update gallery images state immediately
+      setGalleryImages((prevImages) => [...responses, ...prevImages]);
+  
+      console.log("Uploaded images:", responses);
+      // alert("Images uploaded successfully!");
+  
+      // Clear the selected files
+      setImageData({ images: [] });
+  
+      // Reset file input field
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+  
     } catch (error) {
       console.error("Error submitting images:", error);
       alert("There was an error submitting the images.");
     }
   };
+  
 
   const handleDelete = async (e) => {
     e.preventDefault();
@@ -82,7 +93,7 @@ export default function GalleryPage() {
         throw new Error("Error deleting image");
       }
 
-      alert("Image deleted successfully!");
+      // alert("Image deleted successfully!");
       setGalleryImages(
         galleryImages.filter((image) => image.id !== parseInt(deleteId))
       );
@@ -127,6 +138,7 @@ export default function GalleryPage() {
               onChange={handleFileChange}
               className="w-full p-2 border border-gray-300 rounded-md"
               required
+              ref={fileInputRef} // Link the ref here
             />
           </div>
 
